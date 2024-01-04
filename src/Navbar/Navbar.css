@@ -1,0 +1,115 @@
+.navbar{
+  color: #384549;
+  border: 0px;
+  background: #FFF;
+  font-family: Krub;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  height: 90px;
+}
+
+.brand {
+  margin-left: 35px;
+}
+
+.brand,
+#offcanvasNavbarLabel {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.navbar a,
+.navbar a:hover,
+.navbar a:active,
+.navbar a:focus {
+  text-decoration: none;
+  color: inherit;  
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.item-group {
+  display: flex;
+  justify-content: space-between;
+  width: 420px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 285px;
+  margin-right: 35px;
+}
+
+.main-button {
+  border-radius: 61px;
+  border: 3px solid #57CBEF;
+  background: #FFF;
+  min-width: 132px;
+  height: 44px;
+  transition: border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+}
+
+
+.main-button:hover,
+.main-button:active,
+.main-button:focus {
+  border-radius: 61px;
+  border: 3px solid #57CBEF;
+  background: #57CBEF;
+  min-width: 132px;
+  height: 44px;
+}
+
+.custom-button,
+.custom-button:focus {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+#offcanvasNavbar {
+  width: 100%;
+  border-width: 0;
+}
+
+.offcanvas .nav-item {
+  margin-bottom: 12px;
+}
+
+.offcanvas-header {
+  height: 90px;
+}
+
+@media (max-width: 1081px) {
+  .item-group,
+  .nav-buttons,
+  .brand .logo {
+    display: none;
+  }
+  .brand {
+    margin-left: 20px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .custom-button {
+    display: none;
+  }
+}
