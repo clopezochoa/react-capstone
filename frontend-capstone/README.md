@@ -14,9 +14,9 @@ This project is a web application for scheduling medical appointments. It was bu
 
 * React
 * TypeScript
-* Redux
-* Bootstrap
 * Axios
+* Next
+* Tailwind
 
 ## Installation
 
