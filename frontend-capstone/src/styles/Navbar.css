@@ -96,8 +96,21 @@
   margin-bottom: 12px;
 }
 
+.offcanvas .nav-link {
+  padding: 0.5rem;
+}
+
 .offcanvas-header {
   height: 90px;
+}
+
+.offcanvas {
+  text-align: center;
+}
+
+.offcanvas-nav {
+  height: 80%;
+  display: grid;
 }
 
 @media (max-width: 1090px) {
