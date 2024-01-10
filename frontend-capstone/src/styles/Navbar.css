@@ -1,7 +1,9 @@
-.navbar{
-  color: #384549;
+#navbar{
+  padding: 0;
+}
+
+.navbar-custom{
   border: 0px;
-  background: #FFF;
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -12,6 +14,7 @@
 
 .brand {
   margin-left: 35px;
+  display: flex;
 }
 
 .brand,
@@ -34,6 +37,7 @@
   width: 48px;
   height: 48px;
   flex-shrink: 0;
+  margin-left: 1rem;
 }
 
 .item-group {
