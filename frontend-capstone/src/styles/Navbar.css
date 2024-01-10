@@ -100,7 +100,7 @@
   height: 90px;
 }
 
-@media (max-width: 1081px) {
+@media (max-width: 1090px) {
   .item-group,
   .nav-buttons,
   .brand .logo {
@@ -111,8 +111,14 @@
   }
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 1091px) {
   .custom-button {
     display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  #navbar-start{
+    width:100%
   }
 }

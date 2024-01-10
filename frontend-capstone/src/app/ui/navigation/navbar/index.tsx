@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "./logo";
+import MenuButton from "./Button";
 import 'styles/Navbar.css'
 
 const Navbar = ({
@@ -11,7 +12,7 @@ const Navbar = ({
   return (
     <>
       <nav className="navbar navbar-custom text-dark bg-clear" id="navbar">
-        <div className="navbar-start">
+        <div className="navbar-start" id="navbar-start">
           <Logo />
         </div>
         <div className="navbar-center hidden lg:flex item-group">        
@@ -28,9 +29,12 @@ const Navbar = ({
             Reviews
           </a>
         </div>
-        <div className="navbar-end nav-buttons">
-          <button className="main-button mx-2" type="button" >Sign Up</button>
-          <button className="main-button mx-2" type="button" >Login</button>
+        <div className="navbar-end">
+          <div className="nav-buttons">
+            <button className="main-button mx-2" type="button" >Sign Up</button>
+            <button className="main-button mx-2" type="button" >Login</button>
+          </div>
+          <MenuButton />
         </div>
       </nav>
     </>

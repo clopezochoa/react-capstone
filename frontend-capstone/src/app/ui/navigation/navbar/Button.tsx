@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { fetchImage } from "app/lib/image-fetch";
 
-const Logo = () => {
+
+const MenuButton = () => {
   const [imgURL, setImgURL] = useState("");
   const [isIconLoaded, setIsIconLoaded] = useState(false);
 
   useEffect(() => {
-    const path = fetchImage("Biotech.png", "ico");
+    const path = fetchImage("Menu.png", "ico");
     setImgURL(path);
     setIsIconLoaded(true);
   }, []);
@@ -30,19 +30,15 @@ const Logo = () => {
     return <></>;
   } else {
     return <>
-    <Link className="brand" href="/" >
-      <div style={{alignSelf: "center", translate: "0pt -1.5pt"}}>Stay Healthy</div>
       <Image
         src={imgURL}
-        alt="Logo"
-        width={"48"}
-        height={"48"}
-        className="logo"
-        style={{ display: window_width < 640 ? "none" : "flex" }}
+        alt="Menu Button"
+        width={"40"}
+        height={"40"}
+        style={{ display: window_width > 1090 ? "none" : "flex" }}
+        className="me-5"
       />
-    </Link>
     </>
   }
 };
-
-export default Logo;
+export default MenuButton;
