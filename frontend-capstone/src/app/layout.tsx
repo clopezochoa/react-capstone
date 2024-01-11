@@ -1,16 +1,7 @@
 import type { Metadata } from 'next'
-import '../styles/globals.css'
-import { Krub } from 'next/font/google'
-
-const krub = Krub({
-  weight: ['300', '400', '500', '700'],
-  style: ['normal'],
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-krub',
-})
-
-import Navigation from './ui/navigation'
+import '../styles/globals.css';
+import Navigation from './ui/navigation';
+import fonts from './lib/fonts';
 
 export const metadata: Metadata = {
   title: 'Stay Healthy',
@@ -24,7 +15,7 @@ export default function RootLayout({
 }) {
 
   return (
-    <html lang="en" className={`${krub.variable}`}>
+    <html lang="en" className={`${fonts[0].variable}`}>
       <body>
         <Navigation />
         {children}

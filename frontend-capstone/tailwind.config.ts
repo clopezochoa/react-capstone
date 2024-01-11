@@ -14,9 +14,6 @@ const config: Config = {
       xl: '1280px',
     },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-krub)'],
-      },
       colors: {
         clear: '#DEDEDE',
         main: '#57CBEF',
