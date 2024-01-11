@@ -12,7 +12,7 @@ const Sidebar = ({
   return (
     <>
       <div
-        className="sidebar-container fixed w-full h-full overflow-hidden bg-white grid pt-[80px] "
+        className="sidebar-container fixed w-full h-full overflow-hidden text-dark bg-white grid pt-[80px] "
         style={{
           top: "0",
           opacity: `${isOpen ? "1" : "0"}`,
@@ -24,7 +24,7 @@ const Sidebar = ({
           <CloseButton />
         </button>
 
-        <div className="offcanvas text-black">
+        <div className="offcanvas">
           <ul className="offcanvas-nav justify-content-end flex-grow-1 pe-3">
             <li className="nav-item nav-link">
               <a href="/">Home</a>

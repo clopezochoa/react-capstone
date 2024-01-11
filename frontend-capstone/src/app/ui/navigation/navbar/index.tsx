@@ -11,7 +11,7 @@ const Navbar = ({
 
   return (
     <>
-      <nav className="navbar navbar-custom text-black bg-white" id="navbar">
+      <nav className="navbar navbar-custom text-dark bg-white" id="navbar">
         <div className="navbar-start" id="navbar-start">
           <Logo />
         </div>

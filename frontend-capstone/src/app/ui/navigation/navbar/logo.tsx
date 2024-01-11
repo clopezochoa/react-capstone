@@ -10,7 +10,7 @@ const Logo = () => {
   const [isIconLoaded, setIsIconLoaded] = useState(false);
 
   useEffect(() => {
-    const path = fetchImage("Biotech.png", "ico");
+    const path = fetchImage("dna", "ico", "svg");
     setImgURL(path);
     setIsIconLoaded(true);
   }, []);

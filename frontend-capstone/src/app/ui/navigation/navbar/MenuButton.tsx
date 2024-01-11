@@ -10,7 +10,7 @@ const MenuButton = () => {
   const [isIconLoaded, setIsIconLoaded] = useState(false);
 
   useEffect(() => {
-    const path = fetchImage("Menu.png", "ico");
+    const path = fetchImage("Menu", "ico", "png");
     setImgURL(path);
     setIsIconLoaded(true);
   }, []);
