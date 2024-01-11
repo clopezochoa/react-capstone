@@ -74,34 +74,12 @@
   height: 44px;
 }
 
-.custom-button,
-.custom-button:focus {
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  outline: none;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-#offcanvasNavbar {
-  width: 100%;
-  border-width: 0;
-}
-
 .offcanvas .nav-item {
   margin-bottom: 12px;
 }
 
 .offcanvas .nav-link {
   padding: 0.5rem;
-}
-
-.offcanvas-header {
-  height: 90px;
 }
 
 .offcanvas {
@@ -121,12 +99,6 @@
   }
   .brand {
     margin-left: 20px;
-  }
-}
-
-@media (min-width: 1091px) {
-  .custom-button {
-    display: none;
   }
 }
 
