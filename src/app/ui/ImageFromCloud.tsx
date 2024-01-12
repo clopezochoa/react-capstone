@@ -20,7 +20,7 @@ const ImgFromCloud: React.FC<ImgCloudProps> = ({ filename, filetype, format, wid
     const path = fetchImage(filename, filetype, format);
     setImgURL(path);
     setIsIconLoaded(true);
-  }, []);
+  }, [filename, filetype, format]);
   
   
   if (!isImgLoaded) {
