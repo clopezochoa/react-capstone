@@ -1,4 +1,4 @@
-import { NextFontWithVariable } from '@next/font';
+import { NextFontWithVariable } from 'next/dist/compiled/@next/font';
 import { Krub, Lalezar, Maitree } from 'next/font/google';
 
 const krub = Krub({
