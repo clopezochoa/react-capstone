@@ -111,9 +111,18 @@
   border: none;
 }
 
+#password:active,
+#password:hover,
+#password:focus,
+#password::selection {
+  border: none;
+  outline: none;
+}
+
 .password-toggle-button {
   width: 24px;
   height: 24px;
+  margin-inline-end: 0.5rem;
 }
 
 #toggle-password {
@@ -140,6 +149,7 @@
   .custom-container {
     border-radius: 0;
     width: 100%;
+    height: 100%;
     max-width: 640px;
   }
 }
