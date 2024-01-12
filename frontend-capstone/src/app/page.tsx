@@ -1,5 +1,5 @@
-import '../styles/landing.css'
-import fonts from './lib/fonts'
+import 'styles/landing.css'
+import fonts from 'app/lib/fonts'
 
 export default function Home() {
   return (

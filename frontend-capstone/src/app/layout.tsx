@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import '../styles/globals.css';
-import Navigation from './ui/navigation';
-import fonts from './lib/fonts';
+import 'styles/globals.css';
+import Navigation from 'app/ui/navigation';
+import fonts from 'app/lib/fonts';
 
 export const metadata: Metadata = {
   title: 'Stay Healthy',
