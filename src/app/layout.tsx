@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en" className={`${fonts[0].variable}`}>
       <body className='bg-white'>
         <Navigation />
-        {children}
+        <div style={{paddingTop:'90px'}}>
+          {children}
+        </div>
         <Footer />
       </body>
     </html>
