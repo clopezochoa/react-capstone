@@ -18,6 +18,10 @@ const config: Config = {
         clear: '#DEDEDE',
         main: '#57CBEF',
         focus: '#DA22EF',
+        lightMain: '#ABE5F7',
+        lightFocus: '#ED91F7',
+        valid: '#66CCAA',
+        invald: '#FDA086',
         dark: '#384549'
       },
     },
