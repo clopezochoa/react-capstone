@@ -1,15 +1,62 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 import ImgFromCloud from "app/ui/ImageFromCloud";
 import 'styles/AccessForms.css'
 import fonts from "app/lib/fonts";
+import emailValidator from "app/lib/validator";
 
+enum EmailStates {
+  valid = "valid",
+  invalid = "invalid",
+  idle = "idle",
+}
+
+const emailValidationTimeout = 1000;
 
 const LoginForm = () => {
+  const [validationTimeout, setValidationTimeout] = useState<NodeJS.Timeout>();
+  const [emailStatus, setEmailStatus] = useState(EmailStates.idle);
+  const [emailInputStyle, setEmailInputStyle] = useState("input-field");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [passwordIcon, setPasswordIcon] = useState("non-visible");
+  
+  useEffect(() => {
+    switch (emailStatus) {
+      case EmailStates.valid:
+        setEmailInputStyle("input-field-valid");
+        break;
+      case EmailStates.invalid:
+        setEmailInputStyle("input-field-invalid");
+        break;
+      default:
+        setEmailInputStyle("input-field");
+        break;
+    }
+  }, [emailStatus])
 
-  const toggle_password = () => {
-    setIsPasswordVisible(!isPasswordVisible);
+  const validate = (value: string) => {
+    if (value) {
+      setEmailStatus(emailValidator(value) ? EmailStates.valid : EmailStates.invalid)
+    } else {
+      setEmailStatus(EmailStates.idle);
+    }
+  }
+
+  const resetTimeout = (e?: React.FormEvent<HTMLInputElement>, time?: number) => {
+    if(e) {
+      const value = (e.target as HTMLInputElement).value;
+      
+      if (validationTimeout) {
+        clearTimeout(validationTimeout);
+      }
+      const timeout = setTimeout(() => {
+        validate(value);
+      }, time)
+      setValidationTimeout(timeout);
+    } else {
+      clearTimeout(validationTimeout);
+    }
   }
 
   useEffect(() => {
@@ -30,14 +77,38 @@ const LoginForm = () => {
         <form>
           <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" required className="form-control w-full h-10 ps-2" style={{outline:'none'}} placeholder="Enter your email" aria-describedby="helpId" autoComplete="email" />
+              <input
+                type="email"
+                name="email"
+                id={emailInputStyle}
+                required
+                className="input-field"
+                placeholder="Enter your email"
+                aria-describedby="helpId"
+                autoComplete="email"
+                onFocus={e => {
+                  setEmailStatus(EmailStates.idle)
+                  resetTimeout(e, emailValidationTimeout);
+                }}
+                onInput={e => {
+                  setEmailStatus(EmailStates.idle)
+                  resetTimeout(e, emailValidationTimeout);
+                }}
+                onEmptied={()=> {
+                  setEmailStatus(EmailStates.idle);
+                  resetTimeout();
+                }}
+                onBlur={e => {
+                  resetTimeout(e, 1);
+                }}
+              />
           </div>
 
           <div className="form-group">
               <label htmlFor="password">Password</label>
-              <div className="flex justify-between w-full h-10 ps-2" id="password-wrapper">
+              <div className="flex justify-between input-field" id="password-wrapper">
                 <input required type= {isPasswordVisible ? "text" : "password"} name="password" id="password" placeholder="Enter your password" aria-describedby="helpId" />
-                <button className="me-5" id="toggle-password" type="button" onClick= {toggle_password}>
+                <button className="me-5" id="toggle-password" type="button" onClick= {() => {setIsPasswordVisible(!isPasswordVisible)}}>
                   <ImgFromCloud
                     filename={passwordIcon}
                     filetype="ico"
