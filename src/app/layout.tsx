@@ -17,7 +17,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`${fonts[0].variable}`}>
-      <body>
+      <body className='bg-white'>
         <Navigation />
         {children}
         <Footer />
