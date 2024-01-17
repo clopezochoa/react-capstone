@@ -5,8 +5,6 @@ import Link from "next/link";
 import ImgFromCloud from "app/ui/ImageFromCloud";
 
 const Logo = () => {
-
-
   const [window_width, set_window_width] = useState(0);
 
   const updateWidth = () => {
