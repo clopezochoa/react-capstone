@@ -187,6 +187,10 @@
   height: 63px;
 }
 
+.role-placeholder {
+  color: rgb(56, 69, 73, 0.5);
+}
+
 @media (max-width: 640px) {
   .custom-buttons {
     min-width: 285px;

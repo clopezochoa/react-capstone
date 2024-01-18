@@ -2,6 +2,7 @@ import { InputState, InputType } from "./enum";
 
 const lettersNumbersHyphenDotRegex = /^[a-zA-Z0-9.-]+$/;
 const lettersRegex = /^[a-zA-Z]+$/;
+const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
 
 const validationFunction = new Map ([
   ["email", emailValidation],
@@ -77,7 +78,10 @@ function emailValidation(email: string) {
   return isValid;
 }
 
-function phoneValidation() {
+function phoneValidation(phone: string) {
   var isValid = false;
+  if (phoneRegex.test(phone)) {
+    isValid = true;
+  }
   return isValid;
 }
