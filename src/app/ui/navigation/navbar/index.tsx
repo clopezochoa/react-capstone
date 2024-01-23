@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./logo";
 import MenuButton from "./MenuButton";
 import 'styles/Navbar.css'
+import 'styles/buttons.css'
 
 const Navbar = ({
   toggle,
@@ -31,8 +32,8 @@ const Navbar = ({
         </div>
         <div className="navbar-end">
           <div className="nav-buttons">
-            <button className="main-button mx-2" type="button" onClick={() => {alert("Sign UP!")}}>Sign Up</button>
-            <button className="main-button mx-2" type="button" onClick={() => {alert("Log IN!")}}>Login</button>
+            <button className="nav-button nav-button-text nav-button-main mx-2" type="button" onClick={handleSignup}>Sign Up</button>
+            <button className="nav-button nav-button-text nav-button-main mx-2" type="button" onClick={handleLogin}>Login</button>
           </div>
           <button type="button" onClick={toggle}>
             <MenuButton />

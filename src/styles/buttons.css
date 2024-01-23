@@ -1,0 +1,29 @@
+.nav-button-text {
+  color: theme('colors.dark');
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.nav-button {
+  width: 128px;
+  height: 44px;
+  flex-shrink: 0;
+  border: 3px solid;
+  border-radius: 61px;
+}
+
+.nav-button-main {
+  background-color: white;
+  border-color: theme('colors.main');
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-button-main:focus,
+.nav-button-main:active,
+.nav-button-main:hover {
+  background-color: theme('colors.main');
+  transition: background-color 0.2s ease-in-out;
+} 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import 'styles/globals.css';
 import Navigation from 'app/ui/navigation';
 import Footer from './ui/footer';
-import fonts from 'app/lib/fonts';
+import {krub} from 'app/lib/fonts';
 
 export const metadata: Metadata = {
   title: 'Stay Healthy',
@@ -14,9 +14,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   return (
-    <html lang="en" className={`${fonts[0].variable}`}>
+    <html lang="en" className={krub.className}>
       <body className='bg-white'>
         <Navigation />
         <div style={{paddingTop:'90px'}}>

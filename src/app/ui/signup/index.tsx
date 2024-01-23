@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import ImgFromCloud from "app/ui/ImageFromCloud";
 import 'styles/AccessForms.css'
-import fonts from "app/lib/fonts";
 import useValidation from "app/hooks/useValidation";
 import useStyle from "app/hooks/useStyle";
 import { InputState, InputStyleType, InputType } from "app/lib/enum";
