@@ -125,28 +125,7 @@
   background: #ffb5b5;
 }
 
-.custom-button-group {
-  padding-top: 52px;
-}
 
-.custom-buttons {
-  border-radius: 6px;
-  border: 0px;
-  height: 40px;
-  flex-shrink: 0;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.form-button-main {
-  background: #57CBEF;
-  color: #384549;
-}
-
-.form-button-secondary {
-  background: #384549;
-  color: #DEDEDE;
-}
 
 #password {
   margin: 0;
@@ -164,11 +143,7 @@
   outline: none;
 }
 
-.password-toggle-button {
-  width: 24px;
-  height: 24px;
-  margin-inline-end: 0.5rem;
-}
+
 
 #toggle-password {
   float:right;

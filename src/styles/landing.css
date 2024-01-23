@@ -37,20 +37,6 @@
   padding-top: 70px;
 }
 
-.start-button {
-  border-radius: 61px;
-  border: 0;
-  width: 132px;
-  height: 44px;
-  transition: border-color 0.2s ease-in-out,
-    background-color 0.2s ease-in-out;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  line-height: 2px;
-  margin-bottom: 42px;
-}
 
 @media (max-width: 820px) {
   .landing {
@@ -71,12 +57,5 @@
 
   .message-container {
     padding-top: 15px;
-  }
-
-  .start-button {
-    border-radius: 132px;
-    width: 132px;
-    height: 132px;
-    margin-bottom: 42px;
   }
 }

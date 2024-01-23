@@ -26,4 +26,87 @@
 .nav-button-main:hover {
   background-color: theme('colors.main');
   transition: background-color 0.2s ease-in-out;
-} 
+}
+
+.password-toggle-button {
+  width: 24px;
+  height: 24px;
+  margin-inline-end: 0.5rem;
+}
+
+.form-button {
+  border-radius: 6px;
+  border: 0px;
+  height: 40px;
+  flex-shrink: 0;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.form-button-main {
+  background: #57CBEF;
+  color: #384549;
+}
+
+.form-button-secondary {
+  background: #384549;
+  color: #DEDEDE;
+}
+
+.form-button-group {
+  padding-top: 41px;
+}
+
+.start-button-text {
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  line-height: 2px;
+}
+
+.start-button {
+  border-radius: 61px;
+  border: 0;
+  width: 132px;
+  height: 44px;
+  transition: border-color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out;
+  margin-bottom: 42px;
+  margin-top: 75px;
+}
+
+.start-button-main {
+  background-color: theme('colors.main');
+  transition: background-color 0.2s ease-in-out;
+}
+
+.start-button-main:focus,
+.start-button-main:active,
+.start-button-main:hover {
+  background-color: theme('colors.clear');
+  transition: background-color 0.2s ease-in-out;
+}
+
+@media (max-width: 640px) {
+  .form-button {
+    min-width: 285px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) {
+  .form-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 820px) {
+  .start-button {
+    border-radius: 132px;
+    width: 132px;
+    height: 132px;
+  }
+}

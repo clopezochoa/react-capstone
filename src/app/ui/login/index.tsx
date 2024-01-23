@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import ImgFromCloud from "app/ui/ImageFromCloud";
 import 'styles/AccessForms.css'
+import 'styles/buttons.css'
 import useValidation from "app/hooks/useValidation";
 import useStyle from "app/hooks/useStyle";
 import { InputState, InputStyleType, InputType } from "app/lib/enum";
@@ -81,9 +82,9 @@ const LoginForm = () => {
               </div>
           </div>
           
-          <div className="custom-button-group">
-              <button type="submit" className="custom-buttons form-button-main">Login</button>
-              <button type="reset" className="custom-buttons form-button-secondary">Reset</button>
+            <div className="form-button-group">
+                <button type="submit" className="form-button form-button-main">Login</button>
+                <button type="reset" className="form-button form-button-secondary">Reset</button>
           </div>
         </form>
       </div>
