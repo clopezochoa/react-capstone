@@ -5,9 +5,13 @@ import CloseButton from "./closeButton";
 const Sidebar = ({
   isOpen,
   toggle,
+  handleLogin,
+  handleSignup
 }: {
   isOpen: boolean;
   toggle: () => void;
+  handleLogin: () => void;
+  handleSignup: () => void;
 }): JSX.Element => {
   return (
     <>
@@ -39,10 +43,10 @@ const Sidebar = ({
               <a href="reviews">Reviews</a>
             </li>
             <li className="nav-item">
-              <button className="main-button" type="button" onClick={() => {alert("Sign UP!")}}>Sign Up</button>
+              <button className="main-button" type="button" onClick={handleSignup}>Sign Up</button>
             </li>
             <li className="nav-item">
-              <button className="main-button" type="button" onClick={() => {alert("Log IN!")}}>Login</button>
+              <button className="main-button" type="button" onClick={handleLogin}>Login</button>
             </li>            
           </ul>
         </div>

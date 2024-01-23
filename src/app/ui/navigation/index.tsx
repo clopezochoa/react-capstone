@@ -36,7 +36,7 @@ const Navigation = () => {
   return (
     <>
       <Navbar toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} />
-      <Sidebar isOpen={isSidebarVisible} toggle={toggleSidebar} />
+      <Sidebar isOpen={isSidebarVisible} toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup}/>
       { isLoginVisible ? <LoginForm handleLogin={swapForm} hideForm={hideForm} /> : null }
       { isSignupVisible ? <SignupForm handleSignup={swapForm} hideForm={hideForm} /> : null }
       { isLoginVisible || isSignupVisible ? <div className="overlay-background"></div> : null }
