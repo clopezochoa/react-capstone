@@ -5,7 +5,7 @@ import Icon from './icon'
 function Footer() {
     return (
     <>
-      <footer className= {`w-full bg-dark text-clear container-custom`}>
+      <footer className= {`w-full bg-dark text-clear container-custom`} style={{visibility:"hidden"}}>
         <div className='footer-start'>
           <Icon />
           Designed by Carlos López-Ochoa Aledo
