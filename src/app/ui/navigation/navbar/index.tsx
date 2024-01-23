@@ -6,8 +6,12 @@ import 'styles/buttons.css'
 
 const Navbar = ({
   toggle,
+  handleLogin,
+  handleSignup
 }: {
   toggle: () => void;
+  handleLogin: () => void;
+  handleSignup: () => void;
 }) => {
 
   return (
