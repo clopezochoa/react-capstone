@@ -148,7 +148,7 @@ const SignupForm = ({
             </div>
             
             <div className="form-button-group">
-                <button type="submit" className="form-button form-button-main">Login</button>
+                <button type="submit" className="form-button form-button-main">Signup</button>
                 <button type="reset" className="form-button form-button-secondary">Reset</button>
             </div>
           </form>
