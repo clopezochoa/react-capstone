@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Logo from "./logo";
 import MenuButton from "./MenuButton";
 import 'styles/Navbar.css'
 import 'styles/buttons.css'
+import { SessionContext } from "app/provider";
 
 const Navbar = ({
   toggle,
   handleLogin,
-  handleSignup
+  handleSignup,
+  handleLogout,
+  handleProfile
 }: {
   toggle: () => void;
   handleLogin: () => void;
   handleSignup: () => void;
+  handleLogout: () => void;
+  handleProfile: () => void;
+
 }) => {
+  const sessionContext = useContext(SessionContext);
 
   return (
     <>
@@ -35,10 +42,18 @@ const Navbar = ({
           </a>
         </div>
         <div className="navbar-end">
-          <div className="nav-buttons">
-            <button className="nav-button nav-button-text nav-button-main mx-2" type="button" onClick={handleSignup}>Sign Up</button>
-            <button className="nav-button nav-button-text nav-button-main mx-2" type="button" onClick={handleLogin}>Login</button>
-          </div>
+          {
+            !sessionContext?.session.isSession ?
+            <div className="nav-buttons">
+              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleSignup}>Sign Up</button>
+              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogin}>Login</button>
+            </div>
+            :
+            <div className="nav-buttons">
+              <button className="nav-button adaptative-width nav-button-text nav-button-main mx-2 px-4" type="button" onClick={handleProfile}>{sessionContext.session.userName}</button>
+              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogout}>Logout</button>
+            </div>
+          }
           <button type="button" onClick={toggle}>
             <MenuButton />
           </button>

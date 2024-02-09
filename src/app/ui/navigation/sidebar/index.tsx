@@ -1,18 +1,28 @@
 'use client'
 
 import CloseButton from "./closeButton";
+import { useContext } from "react";
+import { SessionContext } from "app/provider";
 
 const Sidebar = ({
   isOpen,
   toggle,
   handleLogin,
-  handleSignup
+  handleSignup,
+  handleLogout,
+  handleProfile
+
 }: {
   isOpen: boolean;
   toggle: () => void;
   handleLogin: () => void;
   handleSignup: () => void;
+  handleLogout: () => void;
+  handleProfile: () => void;
+
 }): JSX.Element => {
+  const sessionContext = useContext(SessionContext);
+
   return (
     <>
       <div
@@ -42,12 +52,27 @@ const Sidebar = ({
             <li className="nav-item nav-link">
               <a href="reviews">Reviews</a>
             </li>
+            
+            { !sessionContext?.session.isSession ?
             <li className="nav-item">
               <button className="main-button" type="button" onClick={handleSignup}>Sign Up</button>
             </li>
+            : 
+            <li className="nav-item">
+              <button className="main-button" type="button" onClick={handleProfile}>{sessionContext?.session.userName}</button>
+            </li>
+             }
+            { !sessionContext?.session.isSession ?
             <li className="nav-item">
               <button className="main-button" type="button" onClick={handleLogin}>Login</button>
-            </li>            
+            </li>
+            : 
+            <li className="nav-item">
+              <button className="main-button" type="button" onClick={handleLogout}>Logout</button>
+            </li>
+            }
+
+
           </ul>
         </div>
       </div>
