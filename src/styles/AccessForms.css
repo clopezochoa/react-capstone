@@ -141,7 +141,7 @@
 
 
 
-#password {
+#password-input {
   margin: 0;
   padding: 0;
   width: 80%;
@@ -149,10 +149,10 @@
   border: none;
 }
 
-#password:active,
-#password:hover,
-#password:focus,
-#password::selection {
+#password-input:active,
+#password-input:hover,
+#password-input:focus,
+#password-input::selection {
   border: none;
   outline: none;
 }

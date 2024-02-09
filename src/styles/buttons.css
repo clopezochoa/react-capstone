@@ -8,11 +8,20 @@
 }
 
 .nav-button {
-  width: 128px;
-  height: 44px;
   flex-shrink: 0;
   border: 3px solid;
   border-radius: 61px;
+}
+
+.normal-size {
+  width: 128px;
+  height: 44px;
+}
+
+.adaptative-width {
+  min-width: 128px;
+  width: fit-content;
+  height: 44px;
 }
 
 .nav-button-main {
