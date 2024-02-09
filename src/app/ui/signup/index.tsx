@@ -1,13 +1,19 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ImgFromCloud from "app/ui/ImageFromCloud";
 import 'styles/AccessForms.css'
 import 'styles/buttons.css'
-import useValidation from "app/hooks/useValidation";
-import useStyle from "app/hooks/useStyle";
-import { InputState, InputStyleType, InputType } from "app/lib/enum";
+import {useStyle} from "app/hooks/useStyle";
+import { InputStyle, InputType, Role, InputEvent, createUserData, Cookies, createSession } from "app/lib/types";
 import { AnimationTime } from "app/lib/animationTime";
+import {useForm} from "app/hooks/useForm";
+import { handleInputEvent } from "app/lib/validation";
+import { genSaltSync, hashSync } from "bcrypt-ts";
+import { useCookies } from "react-cookie";
+import { SessionContext } from "app/provider";
+import { capitalizeFirstLetter, getFirstWord } from "app/lib/helper";
+
 
 const SignupForm = ({
   handleSignup,
@@ -16,21 +22,80 @@ const SignupForm = ({
   handleSignup: () => void;
   hideForm: () => void;
 }) => {
-  const [emailStatus, setEmailStatus] = useState(InputState.idle);
-  const [phoneStatus, setPhoneStatus] = useState(InputState.idle);
+
+  const sessionContext = useContext(SessionContext);
+  const [cookie, setCookie] = useCookies([Cookies.userSession]);
+  const inputs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  const register = async (e: InputEvent) => {
+    e.preventDefault();
+    var email = form.getState(InputType.email)?.value ?? "";
+    var role = form.getState(InputType.role)?.value ?? "";
+    var name = form.getState(InputType.name)?.value ?? "";
+    var phone = form.getState(InputType.phone)?.value ?? "";
+    var password = form.getState(InputType.password)?.value ?? "";
+    const formInputs = [email, role, name, phone, password];
+
+    /// This piece of code fixes the error derived from using autofill plugins
+    if(formInputs.some(formInput => formInput === "")) {
+      inputs.forEach(input => {
+        if(input.current) {
+          const element = (input.current as HTMLInputElement);
+          const value = element.value;
+          const type = element.id as InputType;
+          if (value !== "") {
+            switch (type) {
+              case InputType.email:
+                email = value;
+                break;          
+              case InputType.password:
+                password = value;
+                break;
+              case InputType.role:
+                role = value;
+                break;
+              case InputType.name:
+                name = value;
+                break;
+              case InputType.phone:
+                phone = value;
+                break;
+              default:
+                break;
+            }
+          }
+        }
+      });
+    }
+    ///
+
+    try {
+      const salt = genSaltSync(10);
+      password = hashSync(password, salt);  
+      const body = createUserData(email, password, role, name, phone, salt);
+      const token = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const jsonToken = await token.json();
+      
+      setCookie(Cookies.userSession, JSON.stringify(jsonToken), {
+        path: "/",
+        maxAge: 3600,
+        sameSite: true,
+      });
+
+      if(jsonToken.user.state) {
+        sessionContext?.updateSession(createSession(true, capitalizeFirstLetter(getFirstWord(jsonToken.user.name))));
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [passwordIcon, setPasswordIcon] = useState("non-visible");
-  const [roleStyle, setRoleStyle] = useState("role-placeholder");
-
-  const fadeInTime = new AnimationTime(1000);
-  const fadeOutTime = new AnimationTime(300);
-  
-  const emailValidation = useValidation(InputType.email, setEmailStatus, fadeInTime.milliseconds);
-  const emailStyle = useStyle(emailStatus, fadeOutTime.milliseconds);
-
-  const phoneValidation = useValidation(InputType.phone, setPhoneStatus, fadeInTime.milliseconds);
-  const phoneStyle = useStyle(phoneStatus, fadeOutTime.milliseconds);
-
 
   useEffect(() => {
     if(isPasswordVisible) {
@@ -40,9 +105,26 @@ const SignupForm = ({
     }
   }, [isPasswordVisible]);
 
-  const swapStyle = () => {
-    setRoleStyle("input-field");
-  }
+  const [roleStyle, setRoleStyle] = useState("role-placeholder");
+
+  const fadeInTime = new AnimationTime(1000);
+  const fadeOutTime = new AnimationTime(300);
+  
+  const form = useForm();
+
+  const phoneStyle = useStyle(form.getState(InputType.phone), fadeOutTime.milliseconds);
+  const emailStyle = useStyle(form.getState(InputType.email), fadeOutTime.milliseconds);
+  const passwordStyle = useStyle(form.getState(InputType.password), fadeOutTime.milliseconds);
+    
+  const resetFunction = new Map<InputType, Function> ([
+    [InputType.phone, phoneStyle.resetStyle],
+    [InputType.email, emailStyle.resetStyle],
+    [InputType.password, passwordStyle.resetStyle],
+  ]);
+
+  const handleEvent = (e: InputEvent) => { 
+    handleInputEvent(e, resetFunction, form);
+  };
 
   return <>
     <div className="form-container" onClick={hideForm}>
@@ -55,84 +137,92 @@ const SignupForm = ({
           <form>
             <div className="form-group">
               <label htmlFor="role">Role</label>
-              <select required id="role" className={`input-field ${roleStyle}`} defaultValue={""} onChange={swapStyle} aria-label="Default select example">
-                <option value="" disabled>Select your role</option>
-                <option className="text-dark">Patient</option>
-                <option className="text-dark">Doctor</option>
+              <select ref={inputs[0]} required id={InputType.role} className={`input-field ${roleStyle}`} defaultValue={""} onChange={(e) => {
+                setRoleStyle("input-field");
+                handleEvent(e);
+              }} aria-label="Default select example">
+                <option value="" disabled>{Role.default}</option>
+                <option className="text-dark">{Role.patient}</option>
+                <option className="text-dark">{Role.doctor}</option>
               </select>
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
+                ref={inputs[1]}
                 type="text"
                 name="name"
-                id="name-input"
+                id={InputType.name}
                 required
                 className="input-field"
                 placeholder="Enter your name"
                 aria-describedby="helpId"
                 autoComplete="name"
+                onFocus={handleEvent}
+                onInput={handleEvent}
+                onChange={handleEvent}
+                onBlur={handleEvent}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="name">Phone</label>
+              <label htmlFor="phone">Phone</label>
               <input
+                ref={inputs[2]}
                 type="tel"
                 name="tel"
-                id="tel-input"
+                id={InputType.phone}
                 required
-                className= {`${InputStyleType.default} ${phoneStyle !== InputStyleType.default ? phoneStyle : ""}`}
-                style={{animationDuration: phoneStyle.includes(InputStyleType.fadeIn as string) ? fadeInTime.css : fadeOutTime.css}}
+                className= {`${InputStyle.default} ${phoneStyle.style !== InputStyle.default ? phoneStyle.style : ""}`}
+                style={{animationDuration: phoneStyle.style.includes(InputStyle.fadeIn as string) ? fadeInTime.css : fadeOutTime.css}}
                 placeholder="Enter your phone number"
                 aria-describedby="helpId"
                 autoComplete="tel"
-                onFocus={e => {
-                  phoneValidation?.validate(e);
-                }}
-                onInput={e => {
-                  setPhoneStatus(InputState.idle)
-                  phoneValidation?.validate(e);
-                }}
-                onEmptied={()=> {
-                  phoneValidation?.validate();
-                }}
-                onBlur={e => {
-                  phoneValidation?.validate(e, 1);
-                }}
+                onFocus={handleEvent}
+                onInput={handleEvent}
+                onChange={handleEvent}
+                onBlur={handleEvent}
               />
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
+                  ref={inputs[3]}
                   type="email"
                   name="email"
-                  id="email-input"
+                  id={InputType.email}
                   required
-                  className= {`${InputStyleType.default} ${emailStyle !== InputStyleType.default ? emailStyle : ""}`}
-                  style={{animationDuration: emailStyle.includes(InputStyleType.fadeIn as string) ? fadeInTime.css : fadeOutTime.css}}
+                  className= {`${InputStyle.default} ${emailStyle.style !== InputStyle.default ? emailStyle.style : ""}`}
+                  style={{animationDuration: emailStyle.style.includes(InputStyle.fadeIn as string) ? fadeInTime.css : fadeOutTime.css}}
                   placeholder="Enter your email"
                   aria-describedby="helpId"
                   autoComplete="email"
-                  onFocus={e => {
-                    emailValidation?.validate(e);
-                  }}
-                  onInput={e => {
-                    setEmailStatus(InputState.idle)
-                    emailValidation?.validate(e);
-                  }}
-                  onEmptied={()=> {
-                    emailValidation?.validate();
-                  }}
-                  onBlur={e => {
-                    emailValidation?.validate(e, 1);
-                  }}
+                  onFocus={handleEvent}
+                  onInput={handleEvent}
+                  onChange={handleEvent}
+                  onBlur={handleEvent}
                 />
             </div>
-
             <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <div className="flex justify-between input-field" id="password-wrapper">
-                  <input required className="input-field" type= {isPasswordVisible ? "text" : "password"} name="password" id="password" placeholder="Enter your password" aria-describedby="helpId" />
+                <div
+                  className={`flex justify-between ${`${InputStyle.default} ${passwordStyle.style !== InputStyle.default ? passwordStyle.style : ""}`}`}
+                  style={{animationDuration: passwordStyle.style.includes(InputStyle.fadeIn as string) ? fadeInTime.css : fadeOutTime.css}}
+                  id="password-wrapper"
+                >
+                  <input
+                    ref={inputs[4]}
+                    required
+                    className="bg-transparent"
+                    type= {isPasswordVisible ? "text" : "password"} 
+                    name="password"
+                    id={InputType.password}
+                    placeholder="Enter your password"
+                    aria-describedby="helpId"
+                    onFocus={handleEvent}
+                    onInput={handleEvent}
+                    onChange={handleEvent}
+                    onBlur={handleEvent}
+                  />
                   <button className="me-5" id="toggle-password" type="button" onClick= {() => {setIsPasswordVisible(!isPasswordVisible)}}>
                     <ImgFromCloud
                       filename={passwordIcon}
@@ -148,8 +238,8 @@ const SignupForm = ({
             </div>
             
             <div className="form-button-group">
-                <button type="submit" className="form-button form-button-main">Signup</button>
-                <button type="reset" className="form-button form-button-secondary">Reset</button>
+              <button className="form-button form-button-main" onClick={register} >Signup</button>
+              <button type="reset" className="form-button form-button-secondary" >Reset</button>
             </div>
           </form>
         </div>
