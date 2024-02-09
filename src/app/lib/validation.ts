@@ -1,68 +1,87 @@
-import { InputState, InputType } from "./enum";
+import { InputValidity, InputType, ValidationFunction, InputState, initialValidation, createInputState, InputEvent, ValidationFunctionModel } from "./types";
 
 const lettersNumbersHyphenDotRegex = /^[a-zA-Z0-9.-]+$/;
 const lettersRegex = /^[a-zA-Z]+$/;
 const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}/;
 
-const validationFunction = new Map ([
-  ["email", emailValidation],
-  ["phone", phoneValidation],
+const validationFunction = new Map<InputType, ValidationFunction> ([
+  [InputType.email, emailValidation],
+  [InputType.phone, phoneValidation],
+  [InputType.password, passwordValidation],
 ]);
 
-export class Validation {
-  private inputType: InputType;
-  private statusSetter: React.SetStateAction<any>;
-  private defaultTime: number;
-  private timeout: NodeJS.Timeout | null;
-
-  private static instanceMap: Map<string, Validation> = new Map([]);
-
-  constructor(inputType: InputType, statusSetter: React.SetStateAction<any>, defaultTime: number) {
-    this.inputType = inputType;
-    this.statusSetter = statusSetter;
-    this.defaultTime = defaultTime;
-    this.timeout = null;
+export function validate(
+  state: InputState,
+): InputState {
+  if (state.validity !== InputValidity.pending) return state;
+  state.validity = InputValidity.idle;
+  var validity = InputValidity.idle;
+  if (state.value) {
+    const validation = validationFunction.get(state.type);
+    validity = validation ? validation(state.value) : validity;
   }
+  const result = createInputState(state.type, validity, state.value);
+  return result;
+}
 
-  public static getInstance(inputType: InputType, statusSetter: React.SetStateAction<any>, defaultTime: number): Validation {
-    if (!Validation.instanceMap.has(inputType)) {
-      Validation.instanceMap.set(inputType, new Validation(inputType, statusSetter, defaultTime));
-    }
-    return Validation.instanceMap.get(inputType) as Validation;
-  }
-
-  private getStringFromEvent(e: React.FormEvent<HTMLInputElement>) {
-    if (e) {
-      return (e.target as HTMLInputElement).value;
-    } else {
-      return null;
-    }
-  }
-    
-  public validate(
-    event?: React.FormEvent<HTMLInputElement>,
-    time?: number
-  ) {
-    if(this.timeout) clearTimeout(this.timeout);
-    if(event) {
-      const value = this.getStringFromEvent(event);
-      const timeout = setTimeout(() => {
-        if (value) {
-          const validation = validationFunction.get(this.inputType) as Function;
-          this.statusSetter(validation(value) ? InputState.valid : InputState.invalid)
-        } else {
-          this.statusSetter(InputState.idle);
-        }
-      }, time ?? this.defaultTime)
-      this.timeout = timeout;
-    } else {
-      this.statusSetter(InputState.idle);
-    }
+export function getStringFromEvent(e: InputEvent) {
+  if (e) {
+    return (e.target as HTMLInputElement).value;
+  } else {
+    throw Error("There is no valid event.");
   }
 }
 
-function emailValidation(email: string) {
-  var isValid = false;
+export function getTypeFromEvent(e: InputEvent) {
+  if (e) {
+    switch ((e.target as HTMLInputElement).id) {
+      case "role-input":
+        return InputType.role
+        break;
+      case "name-input":
+        return InputType.name
+        break;
+      case "phone-input":
+        return InputType.role
+        break;
+      case "email-input":
+        return InputType.email
+        break;
+      case "password-input":
+        return InputType.password
+        break;
+      default:
+        return null;
+    }
+  } else {
+    return null;
+  }
+}
+
+export const handleInputValue = (value: string, type: InputType, form: ValidationFunctionModel) => {
+  const state = form.getState(type);
+  if(state) {
+    form.setInputState(createInputState(state.type, InputValidity.pending, value));
+  } 
+};
+
+export const handleInputEvent = (e: InputEvent, resetFunction: Map<InputType, Function>, form: ValidationFunctionModel) => {
+  e.preventDefault();
+  const value = getStringFromEvent(e);
+  const type = (e.target as HTMLInputElement).id as InputType;
+  if (e.type === "input") {
+    const reset = resetFunction.get(type);
+    if (reset) reset();
+  }
+  const state = form.getState(type);
+  if(state) {
+    form.setInputState(createInputState(state.type, InputValidity.pending, value));
+  } 
+};
+
+function emailValidation(email: string): InputValidity {
+  var isValid = InputValidity.invalid;
   if(email && email.includes("@")) {
     const emailArray = email.split("@");
     if (emailArray.length === 2) {
@@ -70,7 +89,7 @@ function emailValidation(email: string) {
         const domainArray = emailArray[1].split('.');
         const len = domainArray[1].length;
         if (lettersRegex.test(domainArray[0]) && (len === 2 || len === 3) && lettersRegex.test(domainArray[1])) {
-          isValid = true;
+          isValid = InputValidity.valid;
         }
       }
     }
@@ -78,10 +97,18 @@ function emailValidation(email: string) {
   return isValid;
 }
 
-function phoneValidation(phone: string) {
-  var isValid = false;
+function phoneValidation(phone: string): InputValidity {
+  var isValid = InputValidity.invalid;
   if (phoneRegex.test(phone)) {
-    isValid = true;
+    isValid = InputValidity.valid;
+  }
+  return isValid;
+}
+
+function passwordValidation(password: string): InputValidity {
+  var isValid = InputValidity.invalid;
+  if (passwordRegex.test(password)) {
+    isValid = InputValidity.valid;
   }
   return isValid;
 }
