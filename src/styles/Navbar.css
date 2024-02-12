@@ -11,6 +11,7 @@
   font-weight: 500;
   line-height: normal;
   height: 90px;
+  z-index: 10;
 }
 
 .brand {
