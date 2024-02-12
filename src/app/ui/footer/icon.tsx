@@ -2,19 +2,10 @@
 
 import { useEffect, useState } from "react";
 import ImgFromCloud from "../ImageFromCloud";
+import useWindow from "app/hooks/useWindow";
 
 const Icon = () => {
-  const [window_width, set_window_width] = useState(0);
-
-  const updateWidth = () => {
-    set_window_width(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    updateWidth();
-  }, []);
-
+  const window_width = useWindow();
   return <>
     <ImgFromCloud filename="author" filetype="ico" format="svg" width='48' height='48' altText='Author Icon' style={{ marginInlineEnd:'20px', display: window_width < 840 ? "none" : "flex" }}/>
   </>

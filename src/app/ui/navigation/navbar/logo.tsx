@@ -1,20 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import ImgFromCloud from "app/ui/ImageFromCloud";
+import useWindow from "app/hooks/useWindow";
 
 const Logo = () => {
-  const [window_width, set_window_width] = useState(0);
-
-  const updateWidth = () => {
-    set_window_width(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    updateWidth();
-  }, []);
+  const window_width = useWindow();
 
   return <>
     <Link className="brand" href="/" >
