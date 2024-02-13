@@ -3,7 +3,7 @@
 import ImgFromCloud from 'app/ui/utils/ImageFromCloud';
 import React, { useEffect, useRef } from 'react';
 import 'styles/headings.css'
-import 'styles/book.css' 
+import 'styles/search.css' 
 
 const SearchInput = ({hideFront, showFront, search} : {hideFront: () => void, showFront: () => void, search: () => void}) => {
     const input = useRef(null);
