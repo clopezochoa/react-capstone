@@ -33,6 +33,9 @@ function InstantConsultation() {
   const resetSearch = () => {
     setSearchDoctor("");
   }
+  const handleBook = (doctor: Doctor) => {
+    console.log("Trying to book -> ", doctor);
+  }
 
   const [maxSize, minSize, querySize] = [360, 200, 640];
   const [imageSize, setImageSize] = useState(maxSize);
@@ -62,7 +65,7 @@ function InstantConsultation() {
       <CollapseServiceFront hidden={!isSearch} height="auto">
         <div style={{zIndex: "1", position:"relative", display:"grid"}}>
           <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap", flexDirection:"row"}}>
-            {matchDoctors.map((doctor) => <DoctorCard doctor={doctor} key={doctor._id}/>)}
+            {matchDoctors.map((doctor) => <DoctorCard doctor={doctor} key={doctor._id} book={handleBook}/>)}
           </div>
         </div>
       </CollapseServiceFront>

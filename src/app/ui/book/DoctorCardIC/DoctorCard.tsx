@@ -3,7 +3,7 @@ import ImgFromCloud from 'app/ui/utils/ImageFromCloud';
 import React from 'react'
 import 'styles/DoctorCard.css'
 
-function DoctorCard({doctor} : {doctor: Doctor}) {
+function DoctorCard({doctor, book} : {doctor: Doctor, book: (doctor: Doctor) => void}) {
   return (
     <div className='card-container'>
       <ImgFromCloud
@@ -45,7 +45,9 @@ function DoctorCard({doctor} : {doctor: Doctor}) {
         </div>
 
       </div>
-      <div className='card-button'>
+      <div
+        className='card-button'
+        onClick={() => book(doctor)}>
         <h1>
           Book Appointment
         </h1>

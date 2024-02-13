@@ -57,6 +57,7 @@
   border: 0;
   font-weight: 500;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .card-button h1 {
