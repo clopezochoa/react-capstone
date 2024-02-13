@@ -28,6 +28,8 @@ export function filterDoctors(doctors: Array<Doctor>, input: string) {
     for(let i = 0; i < words.length; i++) {
       if(doctorName.includes(words[i])) {
         result = true;
+      } else if (doctor.speciality.toLowerCase().includes(words[i])) {
+        result = true;
       } else {
         result = false;
         break;
