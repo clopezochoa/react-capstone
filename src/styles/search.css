@@ -1,0 +1,29 @@
+.search-input{
+  z-index:1;
+  position: relative;
+  margin-block:90px;
+  padding-top:10px;
+  padding-bottom:9px;
+  padding-inline:14px;
+  border:2px solid theme('colors.dark');
+  border-radius:6px;
+  background-color: white;
+}
+
+.search-input-size{
+  width:900px;
+}
+
+.search-ico{
+  translate: -40px;
+  z-index: 2;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1090px) {
+  .search-input-size{
+    width:80%;
+  }
+}
