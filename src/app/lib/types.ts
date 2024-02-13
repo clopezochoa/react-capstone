@@ -65,21 +65,6 @@ export function createSession(isSession: boolean = false, userName?: string){
   return { isSession: isSession, userName: userName } as Session;
 }
 
-export type ContextModel = {
-  tasks: Task[];
-  update: (tasks: Task | Task[], mode: UpdateTaskMode) => void;
-}
-
-export type Task = {
-  name: string;
-  payload: any;
-}
-
-export enum UpdateTaskMode {
-  add = "add",
-  remove = "remove"
-}
-
 export const initialFormState = [
   createInputState(InputType.role, InputValidity.none, ''),
   createInputState(InputType.name, InputValidity.none, ''),
@@ -140,10 +125,27 @@ export function createUserData(
 export const apiHeader = {
   app_id: process.env.APP_ID,
   db_uri: process.env.DB_URI,
-  db_name: process.env.DB_NAME,
-  colleciton_name: process.env.COL_NAME
+  user_db: process.env.USER_DB,
+  doctor_db: process.env.DOCTOR_DB,
+  user_collection: process.env.USER_COL,
+  doctor_collection: process.env.DOCTOR_COL
 }
 
 export enum Cookies {
   userSession = "user-session",
+  doctorsList = "doctors-list"
+}
+
+export type Doctor = {
+  _id: string;
+  name: string;
+  ratings: number;
+  experience: number;
+  speciality: string;
+}
+
+export type appointment = {
+  id: string;
+  name: string;
+  phoneNumber: string;
 }
