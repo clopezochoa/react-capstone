@@ -1,11 +1,19 @@
 'use client'
 
+import { InputEvent } from 'app/lib/types';
 import ImgFromCloud from 'app/ui/utils/ImageFromCloud';
 import React, { useEffect, useRef } from 'react';
 import 'styles/headings.css'
 import 'styles/search.css' 
 
-const SearchInput = ({hideFront, showFront, search} : {hideFront: () => void, showFront: () => void, search: () => void}) => {
+interface SearchInputProps {
+    hideFront: () => void;
+    showFront: () => void;
+    search: (event: InputEvent) => void;
+    resetSearch: () => void;
+  }
+
+const SearchInput: React.FC<SearchInputProps> = ({hideFront, showFront, search, resetSearch}) => {
     const input = useRef(null);
     const handleEsc = (event: KeyboardEvent) => {
         if(event.key === 'Escape') {
@@ -30,7 +38,10 @@ const SearchInput = ({hideFront, showFront, search} : {hideFront: () => void, sh
                 type="text"
                 placeholder='Search doctors, clinics, hospitals, etc.'
                 onFocus={hideFront}
-                className='search-input search-input-size' />
+                className='search-input search-input-size'
+                onInput={search}
+                onEmptied={resetSearch}
+            />
             <ImgFromCloud
                 filename="search"
                 filetype="ico"
@@ -39,7 +50,6 @@ const SearchInput = ({hideFront, showFront, search} : {hideFront: () => void, sh
                 height="24"
                 altText="An icon of a magnifying glass"
                 className='search-ico'
-                onClick={search}
             />
         </div>
     )

@@ -92,7 +92,8 @@ export type InputEvent =
   React.SyntheticEvent<HTMLInputElement> |
   React.ChangeEvent<HTMLInputElement> |
   React.ChangeEvent<HTMLSelectElement> |
-  React.MouseEvent<HTMLButtonElement, MouseEvent>;
+  React.MouseEvent<HTMLButtonElement, MouseEvent> |
+  React.MouseEvent<HTMLImageElement, MouseEvent>;
 
 
 export interface UserData {

@@ -1,3 +1,5 @@
+import { Doctor } from "./types";
+
 export function intersect<T>(arrayOne: Array<T>, arrayTwo: Array<T>) {
   var arrayLong = arrayOne;
   var arrayShort = arrayTwo;
@@ -16,4 +18,22 @@ export function capitalizeFirstLetter(input: string) {
 
 export function getFirstWord(input: string) {
   return input.split(" ")[0];
+}
+
+export function filterDoctors(doctors: Array<Doctor>, input: string) {
+  const words = input.toLowerCase().split(" ") as Array<string>;
+  const result = doctors.filter(doctor => {
+    let result = false;
+    const doctorName = doctor.name.toLowerCase().split(" ").slice(1).reduce((a,b) => a+b) as string;
+    for(let i = 0; i < words.length; i++) {
+      if(doctorName.includes(words[i])) {
+        result = true;
+      } else {
+        result = false;
+        break;
+      }
+    }
+    return result;
+  });
+  return result;
 }

@@ -1,6 +1,7 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
 import Image from "next/image";
 import { fetchImage } from 'app/lib/image-fetch';
+import { InputEvent } from 'app/lib/types';
 
 interface ImgCloudProps {
   filename: string;
@@ -11,7 +12,7 @@ interface ImgCloudProps {
   altText?: string;
   style?: CSSProperties;
   className?: string;
-  onClick?: () => void;
+  onClick?: (event: InputEvent) => void;
 }
 
 const ImgFromCloud: React.FC<ImgCloudProps> = ({ filename, filetype, format, width, height, altText, style, className, onClick }) => {
