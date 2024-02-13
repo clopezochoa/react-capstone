@@ -31,7 +31,7 @@ function DoctorCard({doctor} : {doctor: Doctor}) {
             Ratings:
           </h4>
           <div style={{display: 'flex', justifyContent:'center'}}>
-            {Array<number>(doctor?.ratings).map((rating, index) =>
+            {Array.from(Array(doctor?.ratings).keys()).map((index) =>
               <ImgFromCloud
                 filename="star"
                 filetype="ico"
