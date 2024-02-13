@@ -1,0 +1,15 @@
+.divider{
+  stroke: theme('colors.dark');
+  stroke-width: 1px;
+}
+
+.divider-wrapper{
+  margin-top: 27px;
+  margin-bottom: 55px;
+}
+
+.collapse-service-front{
+  z-index:0;
+  position: relative;
+  overflow: hidden;
+}

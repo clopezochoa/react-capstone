@@ -10,10 +10,11 @@ interface ImgCloudProps {
   height: number | `${number}`;
   altText?: string;
   style?: CSSProperties;
-  className?: string
+  className?: string;
+  onClick?: () => void;
 }
 
-const ImgFromCloud: React.FC<ImgCloudProps> = ({ filename, filetype, format, width, height, altText, style, className }) => {
+const ImgFromCloud: React.FC<ImgCloudProps> = ({ filename, filetype, format, width, height, altText, style, className, onClick }) => {
   const [imgURL, setImgURL] = useState("");
   const [isImgLoaded, setIsIconLoaded] = useState(false);
   
@@ -35,6 +36,7 @@ const ImgFromCloud: React.FC<ImgCloudProps> = ({ filename, filetype, format, wid
         height={`${height}`}
         style={style}
         className={className}
+        onClick={onClick}
       />
     </>
   }
