@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className='bg-white grid'>
         <Providers>
           <Navigation />
-          <div style={{paddingTop:'90px'}}>
+          <div style={{paddingTop:'90px', backgroundColor:"white"}}>
             <ClientApplication>
               {children}
             </ClientApplication>

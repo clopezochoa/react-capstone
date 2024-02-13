@@ -8,7 +8,7 @@ function DoctorCard({doctor, book} : {doctor: Doctor, book: (doctor: Doctor) => 
     <div className='card-container'>
       <ImgFromCloud
         filename={doctor?.name}
-        filetype="doctors"
+        filetype="doctors-min"
         format="jpg"
         width="250"
         height="250"
