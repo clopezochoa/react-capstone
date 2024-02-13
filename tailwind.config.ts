@@ -22,7 +22,8 @@ const config: Config = {
         lightFocus: '#ED91F7',
         valid: '#66CCAA',
         invald: '#FDA086',
-        dark: '#384549'
+        dark: '#384549',
+        golden: '#B89130'
       },
     },
   },
