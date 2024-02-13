@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 
-export default function ClientApplication({children}: any) {
+export default function ClientApplication({children} : {children: React.ReactNode}) {
   useEffect(() => {
     const body = document.querySelector('body');
     const resizeWindow = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ImgFromCloud from "../ImageFromCloud";
+import ImgFromCloud from "../utils/ImageFromCloud";
 import useWindow from "app/hooks/useWindow";
 
 const Icon = () => {

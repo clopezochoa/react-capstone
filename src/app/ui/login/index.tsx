@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import ImgFromCloud from "app/ui/ImageFromCloud";
+import ImgFromCloud from "app/ui/utils/ImageFromCloud";
 import 'styles/AccessForms.css'
 import 'styles/buttons.css'
 import { InputStyle, InputType, InputEvent, Cookies, createUserData, createSession } from "app/lib/types";

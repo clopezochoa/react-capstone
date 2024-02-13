@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import ImgFromCloud from "app/ui/ImageFromCloud";
+import ImgFromCloud from "app/ui/utils/ImageFromCloud";
 import useWindow from "app/hooks/useWindow";
 
 const Logo = () => {
