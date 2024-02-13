@@ -4,8 +4,8 @@ import { connectMongo } from 'app/lib/mongo';
 
 const registerUser = async (userData: UserData) => {
   const client = await connectMongo();
-  const db = client.db(apiHeader.db_name!)
-  const colleciton = db.collection(apiHeader.colleciton_name!);
+  const db = client.db(apiHeader.user_db!)
+  const colleciton = db.collection(apiHeader.user_collection!);
 
   const checkExisting = await colleciton.findOne({ email: userData.email });
   

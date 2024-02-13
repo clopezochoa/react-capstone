@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 
 const authenticateUser = async (userData: UserData) => {
   const client = await connectMongo();
-  const db = client.db(apiHeader.db_name!)
-  const colleciton = db.collection(apiHeader.colleciton_name!);
+  const db = client.db(apiHeader.user_db!)
+  const colleciton = db.collection(apiHeader.user_collection!);
 
   const user = await colleciton.findOne({ email: userData.email });
   
