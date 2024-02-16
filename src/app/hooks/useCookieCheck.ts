@@ -15,7 +15,6 @@ export function useCookieCheck () {
   const [cookie, setCookie] = useCookies([Cookies.userSession]);
   const updateSession = useUpdateSessionAtCookies;
   useEffect(() => {
-    console.dir(cookie[Cookies.userSession])
     if(cookie[Cookies.userSession]) {
       const userName = capitalizeFirstLetter(getFirstWord(cookie[Cookies.userSession].user.name));
       updateSession(userName);
