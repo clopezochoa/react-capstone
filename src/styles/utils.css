@@ -13,3 +13,7 @@
   position: relative;
   overflow: hidden;
 }
+
+.select-placeholder {
+  color: #38464a80;
+}

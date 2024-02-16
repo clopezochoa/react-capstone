@@ -39,3 +39,41 @@ export function filterDoctors(doctors: Array<Doctor>, input: string) {
   });
   return result;
 }
+
+export function getToday(): string {
+  const today = new Date();
+  const yyyy = today.getFullYear().toString();
+  let mmNum = today.getMonth() + 1;
+  let ddNum = today.getDate();
+  const mm = mmNum.toString();
+  const dd = ddNum.toString();
+
+  const day = (ddNum < 10) ? '0' + dd : dd;
+  const month = (mmNum < 10) ? '0' + mm : mm;
+
+  return yyyy + '-' + month + '-' + day;
+}
+
+export function getNow(): string {
+  const today = new Date();
+  var hhNum = today.getHours();
+  const mmNum = today.getMinutes();
+
+  const mm = mmNum.toString();
+
+  const meridian = hhNum < 12 ? "AM" : "PM";
+  hhNum = hhNum < 12 ? hhNum : hhNum - 12;
+  var hh = hhNum.toString();
+
+  const hours = (hhNum < 10) ? '0' + hh : hh;
+  const mins = (mmNum < 10) ? '0' + mm : mm;
+
+  return hours + ' : ' + mins + "  " + meridian;
+}
+
+export function getTimeSimple(): string {
+  const today = new Date();
+  var hours = today.getHours().toString();
+  const minutes = today.getMinutes().toString();
+  return hours + ":" + minutes;
+}
