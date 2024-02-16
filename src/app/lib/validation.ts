@@ -33,32 +33,6 @@ export function getStringFromEvent(e: InputEvent) {
   }
 }
 
-export function getTypeFromEvent(e: InputEvent) {
-  if (e) {
-    switch ((e.target as HTMLInputElement).id) {
-      case "role-input":
-        return InputType.role
-        break;
-      case "name-input":
-        return InputType.name
-        break;
-      case "phone-input":
-        return InputType.role
-        break;
-      case "email-input":
-        return InputType.email
-        break;
-      case "password-input":
-        return InputType.password
-        break;
-      default:
-        return null;
-    }
-  } else {
-    return null;
-  }
-}
-
 export const handleInputValue = (value: string, type: InputType, form: ValidationFunctionModel) => {
   const state = form.getState(type);
   if(state) {
