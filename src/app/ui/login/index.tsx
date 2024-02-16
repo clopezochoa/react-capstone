@@ -113,6 +113,7 @@ const LoginForm = ({
   };
 
   return <>
+    <div className="overlay-background-white"></div>
     <div className="form-container" onClick={hideForm}>
       <div className="form-shape" onClick={(e) => e.stopPropagation()}>
         <h1 className="custom-header">Login</h1>

@@ -59,7 +59,6 @@ const Navigation = () => {
       <Sidebar isOpen={isSidebarVisible} toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} handleLogout={handleLogout} handleProfile={toggleProfile}/>
       { isLoginVisible ? <LoginForm handleLogin={swapForm} hideForm={hideForm} /> : null }
       { isSignupVisible ? <SignupForm handleSignup={swapForm} hideForm={hideForm} /> : null }
-      { isLoginVisible || isSignupVisible ? <div className="overlay-background"></div> : null }
     </>
   );
 };

@@ -1,7 +1,7 @@
 'use client'
 
 import CloseButton from "./closeButton";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "app/provider";
 
 const Sidebar = ({
@@ -23,11 +23,43 @@ const Sidebar = ({
 }): JSX.Element => {
   const sessionContext = useContext(SessionContext);
 
+  const defaultButtonLogin =
+    <li className="nav-item">
+      <button className="main-button" type="button" onClick={handleLogin}>Login</button>
+    </li>;
+
+  const defaultButtonSignup =
+    <li className="nav-item">
+      <button className="main-button" type="button" onClick={handleSignup}>Sign Up</button>
+    </li>;
+
+  const [endButtonLogin, setEndButtonLogin] = useState(defaultButtonLogin);
+  const [endButtonSignup, setEndButtonSignup] = useState(defaultButtonSignup);
+
+  useEffect(() => {
+    if(sessionContext?.session.isSession) {
+      setEndButtonLogin(
+        <li className="nav-item">
+          <button className="main-button" type="button" onClick={handleLogout}>Logout</button>
+        </li>
+      );
+      setEndButtonSignup(
+        <li className="nav-item">
+          <button className="main-button" type="button" onClick={handleProfile}>{sessionContext?.session.userName}</button>
+        </li>
+      );
+    } else {
+      setEndButtonLogin(defaultButtonLogin);
+      setEndButtonSignup(defaultButtonSignup);
+    }
+  }, [sessionContext])
+
   return (
     <>
       <div
         className="sidebar-container fixed w-full h-full overflow-hidden text-dark bg-white grid pt-[80px] "
         style={{
+          zIndex:'3',
           top: "0",
           opacity: `${isOpen ? "1" : "0"}`,
           right: ` ${isOpen ? "0" : "-100%"}`,
@@ -52,27 +84,8 @@ const Sidebar = ({
             <li className="nav-item nav-link">
               <a href="reviews">Reviews</a>
             </li>
-            
-            { !sessionContext?.session.isSession ?
-            <li className="nav-item">
-              <button className="main-button" type="button" onClick={handleSignup}>Sign Up</button>
-            </li>
-            : 
-            <li className="nav-item">
-              <button className="main-button" type="button" onClick={handleProfile}>{sessionContext?.session.userName}</button>
-            </li>
-             }
-            { !sessionContext?.session.isSession ?
-            <li className="nav-item">
-              <button className="main-button" type="button" onClick={handleLogin}>Login</button>
-            </li>
-            : 
-            <li className="nav-item">
-              <button className="main-button" type="button" onClick={handleLogout}>Logout</button>
-            </li>
-            }
-
-
+            { endButtonSignup }
+            { endButtonLogin }
           </ul>
         </div>
       </div>

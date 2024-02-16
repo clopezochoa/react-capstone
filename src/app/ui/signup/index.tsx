@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import ImgFromCloud from "app/ui/utils/ImageFromCloud";
 import 'styles/AccessForms.css'
 import 'styles/buttons.css'
+import 'styles/utils.css'
 import {useStyle} from "app/hooks/useStyle";
 import { InputStyle, InputType, Role, InputEvent, createUserData, Cookies, createSession } from "app/lib/types";
 import { AnimationTime } from "app/lib/animationTime";
@@ -105,7 +106,7 @@ const SignupForm = ({
     }
   }, [isPasswordVisible]);
 
-  const [roleStyle, setRoleStyle] = useState("role-placeholder");
+  const [roleStyle, setRoleStyle] = useState("select-placeholder");
 
   const fadeInTime = new AnimationTime(1000);
   const fadeOutTime = new AnimationTime(300);
@@ -127,6 +128,7 @@ const SignupForm = ({
   };
 
   return <>
+    <div className="overlay-background-white"></div>
     <div className="form-container" onClick={hideForm}>
       <div className="form-shape" onClick={(e) => e.stopPropagation()}>
         <h1 className="custom-header">Sign up</h1>

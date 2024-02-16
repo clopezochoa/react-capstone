@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "./logo";
 import MenuButton from "./MenuButton";
 import 'styles/Navbar.css'
@@ -19,7 +19,29 @@ const Navbar = ({
   handleProfile: () => void;
 
 }) => {
+
   const sessionContext = useContext(SessionContext);
+
+  const defaultEndButtons =
+    <div className="nav-buttons">
+      <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleSignup}>Sign Up</button>
+      <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogin}>Login</button>
+    </div>;
+
+  const [endButtons, setEndButtons] = useState(defaultEndButtons);
+
+  useEffect(() => {
+    if(sessionContext?.session.isSession) {
+      setEndButtons(
+        <div className="nav-buttons">
+          <button className="nav-button adaptative-width nav-button-text nav-button-main mx-2 px-4" type="button" onClick={handleProfile}>{sessionContext.session.userName}</button>
+          <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogout}>Logout</button>
+        </div>
+      )
+    } else {
+      setEndButtons(defaultEndButtons);
+    }
+  }, [sessionContext])
 
   return (
     <>
@@ -42,18 +64,7 @@ const Navbar = ({
           </a>
         </div>
         <div className="navbar-end">
-          {
-            !sessionContext?.session.isSession ?
-            <div className="nav-buttons">
-              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleSignup}>Sign Up</button>
-              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogin}>Login</button>
-            </div>
-            :
-            <div className="nav-buttons">
-              <button className="nav-button adaptative-width nav-button-text nav-button-main mx-2 px-4" type="button" onClick={handleProfile}>{sessionContext.session.userName}</button>
-              <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogout}>Logout</button>
-            </div>
-          }
+          {endButtons}
           <button type="button" onClick={toggle}>
             <MenuButton />
           </button>
