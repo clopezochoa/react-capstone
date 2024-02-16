@@ -15,6 +15,8 @@ export enum InputType {
   email = "email-input",
   phone = "phone-input",
   password = "password-input",
+  date = "date",
+  time = "time",
   none = "none",
 };
 
@@ -145,8 +147,22 @@ export type Doctor = {
   speciality: string;
 }
 
-export type appointment = {
+export type Appointment = {
   id: string;
   name: string;
   phoneNumber: string;
 }
+
+export enum ServiceLink {
+  instantConsultation = "Instant Consultation",
+  bookAppointment = "Book an Appointment",
+  selfCheckup = "Self Checkup",
+  healthTips = "Health Tips and Guidance"
+}
+
+export const services = [
+  ServiceLink.instantConsultation,
+  ServiceLink.bookAppointment,
+  ServiceLink.selfCheckup,
+  ServiceLink.healthTips
+];

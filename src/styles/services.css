@@ -1,0 +1,25 @@
+.services-caption {
+  margin-top: 9px;
+  color: theme('colors.dark');
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.services-catalog{
+  display: flex;
+  justify-content: center;
+  letter-spacing: normal;
+  margin-top: 80px;
+  flex-wrap: wrap;
+  margin-bottom: 250px;
+}
+
+.service-item{
+  margin-inline: 32px;
+  display: grid;
+  max-width: 200px;
+  cursor: pointer;
+}
