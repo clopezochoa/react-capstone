@@ -99,6 +99,17 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+.read-button{
+  color: black;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
 @media (max-width: 640px) {
   .form-button {
     min-width: 285px;
