@@ -23,7 +23,6 @@
 }
 
 .doctor-form-shape{
-  scale:75%;
   display:grid;
   justify-items:center;
   translate: 0px -100px;
@@ -114,6 +113,7 @@
 
 .form-group {
   text-align: start;
+  min-width: 260px;
 }
 
 .form-group label {
@@ -206,6 +206,8 @@
   z-index:7;
   transition: opacity 1s ease-in-out;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 .overlay-background-white {
@@ -217,6 +219,10 @@
   z-index:9;
   transition: opacity 1s ease-in-out;
   overflow: hidden;
+  display: flex;
+  justify-content:center;
+  top: 0%;
+  left: 0%;
 }
 
 .loginAlert {
@@ -240,9 +246,10 @@
 
 .loginAlertContainer{
   z-index: 8;
-  position: sticky;
   display: flex;
   justify-content:center;
+  position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
 }
