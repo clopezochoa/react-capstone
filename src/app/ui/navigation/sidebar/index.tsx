@@ -3,6 +3,7 @@
 import CloseButton from "./closeButton";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "app/provider";
+import { getFirstNameFromUserData } from "app/lib/helper";
 
 const Sidebar = ({
   isOpen,
@@ -45,7 +46,7 @@ const Sidebar = ({
       );
       setEndButtonSignup(
         <li className="nav-item">
-          <button className="main-button" type="button" onClick={handleProfile}>{sessionContext?.session.userName}</button>
+          <button className="main-button" type="button" onClick={handleProfile}>{getFirstNameFromUserData(sessionContext?.session?.user)}</button>
         </li>
       );
     } else {
@@ -82,7 +83,7 @@ const Sidebar = ({
               <a href="health-blog">Health Blog</a>
             </li>
             <li className="nav-item nav-link">
-              <a href="reviews">Reviews</a>
+              <a href="review">Review</a>
             </li>
             { endButtonSignup }
             { endButtonLogin }

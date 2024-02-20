@@ -1,9 +1,9 @@
-import { Cookies, Doctor } from 'app/lib/types';
+import { Cookies, DoctorData } from 'app/lib/types';
 import { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 
 function useDoctorsList() {
-  const [doctors, setDoctors] = useState<Array<Doctor>>([]);
+  const [doctors, setDoctors] = useState<Array<DoctorData>>([]);
   const [doctorCookie, setDoctorCookie, deleteDoctorCookie] = useCookies([Cookies.doctorsList]);
 
   const getDoctorsList = async () => {
@@ -17,7 +17,7 @@ function useDoctorsList() {
       setDoctorCookie(Cookies.doctorsList, JSON.stringify(jsonDoctors.doctors), {
         path: "/",
         maxAge: 3600,
-        sameSite: true,
+        sameSite: "strict",
       });
       
       if(jsonDoctors.doctors) {

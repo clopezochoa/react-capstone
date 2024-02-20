@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'styles/utils.css'
 
-function CollapseServiceFront({children, hidden, height}: {children: React.ReactNode, hidden: boolean, height: string}) {
+function CollapseServiceFront({children, hidden, height, reverse}: {children: React.ReactNode, hidden: boolean, height: string, reverse: boolean}) {
   const transition = 'all 1s ease-in-out';
   var fullOpacity = {
     opacity: 1.0,
@@ -14,7 +14,7 @@ function CollapseServiceFront({children, hidden, height}: {children: React.React
     height: "0px",
   };
 
-  const [currentOpacity, setCurrentOpacity] = useState(fullOpacity);
+  const [currentOpacity, setCurrentOpacity] = useState(!reverse ? fullOpacity : noOpacity);
   
   useEffect(() => {
     setCurrentOpacity(hidden ? noOpacity : fullOpacity);

@@ -4,6 +4,7 @@ import MenuButton from "./MenuButton";
 import 'styles/Navbar.css'
 import 'styles/buttons.css'
 import { SessionContext } from "app/provider";
+import { getFirstNameFromUserData } from "app/lib/helper";
 
 const Navbar = ({
   toggle,
@@ -34,7 +35,7 @@ const Navbar = ({
     if(sessionContext?.session.isSession) {
       setEndButtons(
         <div className="nav-buttons">
-          <button className="nav-button adaptative-width nav-button-text nav-button-main mx-2 px-4" type="button" onClick={handleProfile}>{sessionContext.session.userName}</button>
+          <button className="nav-button adaptative-width nav-button-text nav-button-main mx-2 px-4" type="button" onClick={handleProfile}>{getFirstNameFromUserData(sessionContext?.session?.user)}</button>
           <button className="nav-button normal-size nav-button-text nav-button-main mx-2" type="button" onClick={handleLogout}>Logout</button>
         </div>
       )
@@ -59,8 +60,8 @@ const Navbar = ({
           <a href="health-blog">
             Health Blog
           </a>
-          <a href="reviews">
-            Reviews
+          <a href="review">
+            Review
           </a>
         </div>
         <div className="navbar-end">

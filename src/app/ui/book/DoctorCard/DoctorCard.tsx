@@ -1,9 +1,9 @@
-import { Doctor } from 'app/lib/types';
+import { DoctorData } from 'app/lib/types';
 import ImgFromCloud from 'app/ui/utils/ImageFromCloud';
 import React from 'react'
 import 'styles/DoctorCard.css'
 
-export function DoctorInfo({doctor}: {doctor: Doctor}) {
+export function DoctorInfo({doctor}: {doctor: DoctorData}) {
   return (
     <div className='card-info'>
       <h1>
@@ -28,7 +28,7 @@ export function DoctorInfo({doctor}: {doctor: Doctor}) {
             width="10"
             height="10"
             altText='star icon'
-            key={doctor._id + "_" + index.toString()}
+            key={doctor.id + "_" + index.toString()}
             />)}
         </div>
       </div>
@@ -36,7 +36,7 @@ export function DoctorInfo({doctor}: {doctor: Doctor}) {
   )
 }
 
-export function DoctorProfile({doctor} : {doctor: Doctor}) {
+export function DoctorProfile({doctor} : {doctor: DoctorData}) {
   return (<>
     <ImgFromCloud
       filename={doctor?.name}
@@ -46,7 +46,7 @@ export function DoctorProfile({doctor} : {doctor: Doctor}) {
       height="250"
       altText='doctor profile picture'
       className='doctor-picture'
-      key={doctor._id}
+      key={doctor.id}
     />
     <DoctorInfo doctor = {doctor} />
   </>
@@ -54,7 +54,7 @@ export function DoctorProfile({doctor} : {doctor: Doctor}) {
   );
 }
 
-function DoctorCard({doctor, book} : {doctor: Doctor, book: (doctor: Doctor) => void}) {
+function DoctorCard({doctor, book} : {doctor: DoctorData, book: (doctor: DoctorData) => void}) {
   return (
     <div className='card-container'>
       <DoctorProfile doctor={doctor} />

@@ -1,10 +1,10 @@
 import Divider from 'app/ui/utils/divider';
 import React from 'react'
 
-function ServiceFront({children, serviceTitle}:{children: React.ReactNode, serviceTitle: string}) {
+function ServiceFront({children, serviceTitle, classNameHeading}:{children: React.ReactNode, serviceTitle: string, classNameHeading: string}) { 
   return (
     <div style={{display:"grid", justifyItems:"center"}}>
-        <h1 className='head-big'>{serviceTitle}</h1>
+        <h1 className={classNameHeading}>{serviceTitle}</h1>
         <Divider />
         {children}
     </div>

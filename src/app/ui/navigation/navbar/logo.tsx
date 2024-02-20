@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import ImgFromCloud from "app/ui/utils/ImageFromCloud";
-import useWindow from "app/hooks/useWindow";
+import {useWindowWidth} from "app/hooks/useWindow";
 
 const Logo = () => {
-  const window_width = useWindow();
+  const window_width = useWindowWidth(1920);
 
   return <>
     <Link className="brand" href="/" >

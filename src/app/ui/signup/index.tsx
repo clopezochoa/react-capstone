@@ -13,8 +13,6 @@ import { handleInputEvent } from "app/lib/validation";
 import { genSaltSync, hashSync } from "bcrypt-ts";
 import { useCookies } from "react-cookie";
 import { SessionContext } from "app/provider";
-import { capitalizeFirstLetter, getFirstWord } from "app/lib/helper";
-
 
 const SignupForm = ({
   handleSignup,
@@ -80,15 +78,15 @@ const SignupForm = ({
         body: JSON.stringify(body),
       });
       const jsonToken = await token.json();
-      
+            
       setCookie(Cookies.userSession, JSON.stringify(jsonToken), {
         path: "/",
         maxAge: 3600,
-        sameSite: true,
+        sameSite: "strict",
       });
 
       if(jsonToken.user.state) {
-        sessionContext?.updateSession(createSession(true, capitalizeFirstLetter(getFirstWord(jsonToken.user.name))));
+        sessionContext?.updateSession(createSession(true, jsonToken.user));
       }
     } catch (error) {
       console.error(error)
