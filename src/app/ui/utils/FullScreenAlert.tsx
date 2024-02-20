@@ -20,9 +20,7 @@ export function FullScreenAlert({
   }
 
   return (<>
-  <div>
     {currentAlertContext ? <LoginAlert dismiss={dismissAlert} /> : null}  
-  </div>
     <AlertContext.Provider value={{isActive: currentAlertContext, updateAlert}}>
       {children}
     </AlertContext.Provider>
