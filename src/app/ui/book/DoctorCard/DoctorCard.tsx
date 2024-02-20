@@ -5,7 +5,7 @@ import 'styles/DoctorCard.css'
 
 export function DoctorInfo({doctor}: {doctor: DoctorData}) {
   return (
-    <div className='card-info'>
+    <div key={doctor.id} className='card-info'>
       <h1>
         {doctor?.name}
       </h1>

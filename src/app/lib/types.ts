@@ -192,6 +192,13 @@ export interface AppointmentData {
   review: ReviewData;
 }
 
+export interface AppointmentDTO {
+  time: string;
+  date: string;
+  patient: string;
+  doctor: string;
+}
+
 export function createAppointment(time?: string, date?: string, patient?: UserData, doctor?: DoctorData, id?: string, review?: ReviewData) {
   return {
     time: time,
@@ -201,6 +208,15 @@ export function createAppointment(time?: string, date?: string, patient?: UserDa
     review: review,
     id: id,
   } as AppointmentData
+}
+
+export function createAppointmentDTO(time?: string, date?: string, patient?: string, doctor?: string) {
+  return {
+    time: time,
+    date: date,
+    patient: patient,
+    doctor: doctor,
+  } as AppointmentDTO
 }
 
 type TipImage = {

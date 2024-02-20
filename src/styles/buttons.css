@@ -62,6 +62,11 @@
   color: #DEDEDE;
 }
 
+.form-button-cancel {
+  background: theme("colors.invalid");
+  color: theme('colors.dark');
+}
+
 .form-button-group {
   padding-top: 41px;
 }
