@@ -53,6 +53,11 @@ export enum Role {
 
 export type ValidationFunction = (value: string) => InputValidity;
 
+export type AlertContextModel = {
+  isActive: boolean;
+  updateAlert: (isActive: boolean) => void;
+}
+
 export type SessionContextModel = {
   session: Session;
   updateSession: (session: Session) => void;
@@ -60,11 +65,11 @@ export type SessionContextModel = {
 
 export interface Session {
   isSession: boolean;
-  userName?: string;
+  user: UserData | null;
 }
 
-export function createSession(isSession: boolean = false, userName?: string){
-  return { isSession: isSession, userName: userName } as Session;
+export function createSession(isSession: boolean = false, user?: UserData){
+  return { isSession: isSession, user: user } as Session;
 }
 
 export const initialFormState = [
@@ -99,17 +104,17 @@ export type InputEvent =
 
 
 export interface UserData {
-  id?: string,
-  role?: string,
-  name?: string,
-  phone?: string,
+  id: string,
+  role: string,
+  name: string,
+  phone: string,
   email: string,
   password: string
 }
 
 export function createUserData(
   email: string,
-  password: string,
+  password: string | null,
   role?: string,
   name?: string,
   phone?: string,
@@ -130,27 +135,26 @@ export const apiHeader = {
   db_uri: process.env.DB_URI,
   user_db: process.env.USER_DB,
   doctor_db: process.env.DOCTOR_DB,
+  appointment_db: process.env.BOOK_DB,
+  tip_db: process.env.TIP_DB,
   user_collection: process.env.USER_COL,
-  doctor_collection: process.env.DOCTOR_COL
+  doctor_collection: process.env.DOCTOR_COL,
+  appointment_collection: process.env.BOOK_COL,
+  tip_collection: process.env.TIP_COL
 }
 
 export enum Cookies {
   userSession = "user-session",
-  doctorsList = "doctors-list"
+  doctorsList = "doctors-list",
+  userAppointments = "user-appointments"
 }
 
-export type Doctor = {
-  _id: string;
+export interface DoctorData {
+  id: string;
   name: string;
   ratings: number;
   experience: number;
   speciality: string;
-}
-
-export type Appointment = {
-  id: string;
-  name: string;
-  phoneNumber: string;
 }
 
 export enum ServiceLink {
@@ -166,3 +170,48 @@ export const services = [
   ServiceLink.selfCheckup,
   ServiceLink.healthTips
 ];
+
+export type ReviewData = {
+  message: string;
+  rating: number;
+}
+
+export function createReview(message: string, rating: number | string): ReviewData {
+  return {
+    message: message,
+    rating: typeof rating === "string" ? parseInt(rating) : rating
+  } as ReviewData;
+}
+
+export interface AppointmentData {
+  id: string;
+  time: string;
+  date: string;
+  patient: UserData;
+  doctor: DoctorData;
+  review: ReviewData;
+}
+
+export function createAppointment(time?: string, date?: string, patient?: UserData, doctor?: DoctorData, id?: string, review?: ReviewData) {
+  return {
+    time: time,
+    date: date,
+    patient: patient,
+    doctor: doctor,
+    review: review,
+    id: id,
+  } as AppointmentData
+}
+
+type TipImage = {
+  name: string;
+  type: string;
+  format: string;
+}
+
+export type Tip = {
+  title: string;
+  subtitle: string;
+  body: string;
+  img?: TipImage;
+}

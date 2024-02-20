@@ -1,4 +1,4 @@
-import { UserData, apiHeader } from 'app/lib/types';
+import { UserData, apiHeader, createUserData } from 'app/lib/types';
 import { NextResponse } from 'next/server';
 import { connectMongo } from 'app/lib/mongo';
 
@@ -14,17 +14,21 @@ const registerUser = async (userData: UserData) => {
     throw new Error('User already exists!');
   }
 
-  const user = await colleciton.insertOne(userData);
+  await colleciton.insertOne(userData);
+  const user = await colleciton.findOne({ email: userData.email });
+
   client.close();
 
-  return {status: true, id: userData.id, name: userData.name};
+  return {status: true, user: user};
 }
 
 export const POST = async (req: Request, res: Response) => {
   try {
     const userData = await req.json() as UserData;
-    const user = await registerUser(userData);
-    return NextResponse.json({user: {state: user?.status, id: user?.id, name: user?.name}}, {status:201})
+    const auth = await registerUser(userData);
+    const status = auth.status;
+    const user = auth.user;
+    return NextResponse.json({state: status, user: createUserData(user?.email, null, user?.role, user?.name, user?.phone, user?.id)}, {status:201})
   } catch (error) {
     return NextResponse.json({message: "Error", error},
     {status: 500})

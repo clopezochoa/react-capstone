@@ -1,5 +1,5 @@
 import { connectMongo } from "app/lib/mongo";
-import { UserData, apiHeader } from "app/lib/types";
+import { UserData, apiHeader, createUserData } from "app/lib/types";
 import { compare } from "bcrypt-ts";
 import { NextResponse } from "next/server";
 
@@ -30,8 +30,10 @@ const authenticateUser = async (userData: UserData) => {
 export const POST = async (req: Request, res: Response) => {
   try {
     const userData = await req.json() as UserData;
-    const user = await authenticateUser(userData);
-    return NextResponse.json({user: {state: user?.status, id: user?.user.id, name: user?.user.name}}, {status:200})
+    const auth = await authenticateUser(userData);
+    const status = auth.status;
+    const user = auth.user;
+    return NextResponse.json({state: status, user: createUserData(user?.email, null, user?.role, user?.name, user?.phone, user?.id)}, {status:200})
   } catch (error) {
     return NextResponse.json({message: "Error", error},
     {status: 500})

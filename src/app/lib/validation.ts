@@ -40,8 +40,9 @@ export const handleInputValue = (value: string, type: InputType, form: Validatio
   } 
 };
 
-export const handleInputEvent = (e: InputEvent, resetFunction: Map<InputType, Function>, form: ValidationFunctionModel) => {
+export const handleInputEvent = (e: InputEvent, resetFunction: Map<InputType, Function> | null, form: ValidationFunctionModel) => {
   e.preventDefault();
+  resetFunction =  resetFunction ?? new Map<InputType, Function> ([]);
   const value = getStringFromEvent(e);
   const type = (e.target as HTMLInputElement).id as InputType;
   if (e.type === "input") {

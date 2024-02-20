@@ -1,4 +1,4 @@
-import { Doctor } from "./types";
+import { DoctorData, UserData } from "./types";
 
 export function intersect<T>(arrayOne: Array<T>, arrayTwo: Array<T>) {
   var arrayLong = arrayOne;
@@ -20,7 +20,12 @@ export function getFirstWord(input: string) {
   return input.split(" ")[0];
 }
 
-export function filterDoctors(doctors: Array<Doctor>, input: string) {
+export function getFirstNameFromUserData(user: UserData | null) {
+  if(!user) return "";
+  return capitalizeFirstLetter(getFirstWord(user.name));
+}
+
+export function filterDoctors(doctors: Array<DoctorData>, input: string) {
   const words = input.toLowerCase().split(" ") as Array<string>;
   const result = doctors.filter(doctor => {
     let result = false;
@@ -56,24 +61,79 @@ export function getToday(): string {
 
 export function getNow(): string {
   const today = new Date();
-  var hhNum = today.getHours();
+  const hhNum = today.getHours();
   const mmNum = today.getMinutes();
 
   const mm = mmNum.toString();
-
-  const meridian = hhNum < 12 ? "AM" : "PM";
-  hhNum = hhNum < 12 ? hhNum : hhNum - 12;
-  var hh = hhNum.toString();
+  const hh = hhNum.toString();
 
   const hours = (hhNum < 10) ? '0' + hh : hh;
   const mins = (mmNum < 10) ? '0' + mm : mm;
 
-  return hours + ' : ' + mins + "  " + meridian;
+  return hours + ':' + mins;
 }
 
-export function getTimeSimple(): string {
-  const today = new Date();
-  var hours = today.getHours().toString();
-  const minutes = today.getMinutes().toString();
-  return hours + ":" + minutes;
+export function compareDate(refDate: string, refTime: string): boolean {
+  const today = getToday();
+  const day = parseInt(today.slice(8,10));
+  const month = parseInt(today.slice(5,7));
+  const year = parseInt(today.slice(0,4));
+  // console.log("🚀 ~ today", year, month, day)
+  const refDay = parseInt(refDate.slice(8,10));
+  const refMonth = parseInt(refDate.slice(5,7));
+  const refYear = parseInt(refDate.slice(0,4));
+  // console.log("🚀 ~ refDay", refYear, refMonth, refDay)
+  
+  if(day > refDay || month > refMonth || year > refYear) {
+    return true;
+  } else if(day === refDay && month === refMonth && year === refYear) {
+    return compareTime(refTime);
+  } else {
+    return false;
+  }
+}
+
+export function compareTime(ref: string): boolean {
+  const now = getNow();
+  const hours = parseInt(now.slice(0,2));
+  const minutes = parseInt(now.slice(3,5));
+  const totalMinutes = (hours * 60) + minutes;
+  const refHours = parseInt(ref.slice(0,2));
+  const refMinutes = parseInt(ref.slice(3,5));
+  const totalRefMinutes = (refHours * 60) + refMinutes;
+  if(totalMinutes >= totalRefMinutes) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function stringToMonth(input: string) {
+  switch (input) {
+    case "01":
+      return("January");
+    case "02":
+      return("February");
+    case "03":
+      return("March");
+    case "04":
+      return("April");
+    case "05":
+      return("May");
+    case "06":
+      return("June");
+    case "07":
+      return("July");
+    case "08":
+      return("August");
+    case "09":
+      return("September");
+    case "10":
+      return("October");
+    case "11":
+      return("December");
+      case "12":
+    default:
+      return(input);
+  }
 }

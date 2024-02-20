@@ -11,7 +11,6 @@ import { useStyle } from "app/hooks/useStyle";
 import { handleInputEvent } from "app/lib/validation";
 import { useCookies } from "react-cookie";
 import { SessionContext } from "app/provider";
-import { capitalizeFirstLetter, getFirstWord } from "app/lib/helper";
 
 const LoginForm = ({
   handleLogin,
@@ -28,10 +27,10 @@ const LoginForm = ({
   
   const authenticate = async (e: InputEvent) => {
     e.preventDefault();
-    const userSessionCookie = cookie["user-session"];
+    const userSessionCookie = cookie[Cookies.userSession];
     if(userSessionCookie) {
       if(userSessionCookie.message !== "Error") {
-        sessionContext?.updateSession(createSession(true, capitalizeFirstLetter(getFirstWord(userSessionCookie.user.name))));
+        sessionContext?.updateSession(createSession(true, userSessionCookie));
         return;
       }
     }
@@ -71,15 +70,15 @@ const LoginForm = ({
         body: JSON.stringify(body),
       });
       const jsonToken = await token.json();
-      
+
       setCookie(Cookies.userSession, JSON.stringify(jsonToken), {
         path: "/",
         maxAge: 3600,
-        sameSite: true,
+        sameSite: "strict",
       })
       
-      if(jsonToken.user.state) {
-        sessionContext?.updateSession(createSession(true, capitalizeFirstLetter(getFirstWord(jsonToken.user.name))));
+      if(jsonToken?.state) {
+        sessionContext?.updateSession(createSession(true, jsonToken?.user));
       }
     } catch (error) {
       console.error(error)
@@ -181,7 +180,7 @@ const LoginForm = ({
 
             
             <div className="form-button-group">
-            <button className="form-button form-button-main" onClick={authenticate} >Login</button>
+              <button className="form-button form-button-main" onClick={authenticate} >Login</button>
               <button type="reset" className="form-button form-button-secondary" >Reset</button>
             </div>
           </form>
