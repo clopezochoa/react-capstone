@@ -5,23 +5,25 @@ import ImgFromCloud from "app/ui/utils/ImageFromCloud";
 import 'styles/AccessForms.css'
 import 'styles/buttons.css'
 import 'styles/utils.css'
-import { InputStyle, InputType, InputEvent, DoctorData, createAppointment } from "app/lib/types";
+import { InputStyle, InputType, InputEvent, DoctorData, createAppointment, AppointmentData } from "app/lib/types";
 import { AnimationTime } from "app/lib/animationTime";
 import { useForm } from "app/hooks/useForm";
 import { useStyle } from "app/hooks/useStyle";
 import { handleInputEvent } from "app/lib/validation";
 import { SessionContext } from "app/provider";
 import { compareDate, getNow, getToday } from "app/lib/helper";
-import { DoctorInfo } from "../DoctorCard/DoctorCard";
+import { DoctorInfo } from "../DoctorCard/AppointmentCard";
 import 'styles/DoctorCard.css'
 import { genSaltSync } from "bcrypt-ts";
 
-const AppointmentForm = ({
+const EditAppointmentForm = ({
   hideForm,
-  doctor
+  appointment,
+  // doctor
 }: {
   hideForm: () => void;
-  doctor: DoctorData
+  appointment: AppointmentData
+  // doctor: DoctorData
 }) => {
   const sessionContext = useContext(SessionContext);
   const form = useForm();
@@ -74,7 +76,7 @@ const AppointmentForm = ({
 
     try {
       const salt = genSaltSync(8);
-      const body = createAppointment(time, date, sessionContext?.session.user!, doctor, salt);
+      const body = createAppointment(time, date, sessionContext?.session.user!, appointment.doctor, salt);
       const response = await fetch('/api/appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,23 +99,23 @@ const AppointmentForm = ({
         <div className="doctor-form-shape form-shape" onClick={(e) => e.stopPropagation()}>
           <div style={{marginBottom:"1rem", marginTop:"3rem", borderRadius:"100px", overflow:"hidden", width:"200px", height:"200px"}}>
             <ImgFromCloud
-              filename={doctor?.name}
+              filename={appointment.doctor?.name}
               filetype="doctors-min"
               format="jpg"
               width="200"
               height="200"
               altText='doctor profile picture'
               className='doctor-picture'
-              key={doctor.id}
+              key={appointment.doctor.id}
             />
           </div>
           <div style={{scale:"110%", paddingBlock:'1rem'}}>
-            <DoctorInfo doctor={doctor}/> 
+            <DoctorInfo doctor={appointment.doctor} appointment={appointment}/> 
           </div>
           <div className="custom-form" style={{paddingTop:"0px"}}>
             <form>
               <div className="form-group">
-                <label htmlFor="date">Date of Appointment</label>
+                <label htmlFor="date">Set New Date</label>
                 <input
                   ref={inputs[0]}
                   type="date"
@@ -129,7 +131,7 @@ const AppointmentForm = ({
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="time">Book Time Slot</label>
+                <label htmlFor="time">Change Time Slot</label>
                 <input
                   ref={inputs[1]}
                   type="time"
@@ -159,4 +161,4 @@ const AppointmentForm = ({
   </>
 }
 
-export default AppointmentForm;
+export default EditAppointmentForm;

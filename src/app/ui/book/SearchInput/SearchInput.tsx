@@ -11,9 +11,11 @@ interface SearchInputProps {
     showFront: () => void;
     search: (event: InputEvent) => void;
     resetSearch: () => void;
+    marginBlock: string;
+    placeholder: string;
   }
 
-const SearchInput: React.FC<SearchInputProps> = ({hideFront, showFront, search, resetSearch}) => {
+const SearchInput: React.FC<SearchInputProps> = ({hideFront, showFront, search, resetSearch, marginBlock, placeholder}) => {
     const input = useRef(null);
     const handleEsc = (event: KeyboardEvent) => {
         if(event.key === 'Escape') {
@@ -36,9 +38,9 @@ const SearchInput: React.FC<SearchInputProps> = ({hideFront, showFront, search, 
             <input
                 ref={input}
                 type="text"
-                placeholder='Search doctors, clinics, hospitals, etc.'
+                placeholder={placeholder}
                 onFocus={hideFront}
-                className='search-input search-input-size'
+                className={'search-input search-input-pad-' + marginBlock}
                 onInput={search}
                 onEmptied={resetSearch}
             />

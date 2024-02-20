@@ -8,10 +8,51 @@
   border:2px solid theme('colors.dark');
   border-radius:6px;
   background-color: white;
+  width:900px;
+  outline: none;
 }
 
-.search-input-size{
+.search-input-pad-l{
+  margin-block:90px;
+}
+
+.search-input-pad-s{
+  margin-block:30px;
+}
+
+.suggestion-span{
+  z-index:1;
+  position: relative;
+  padding-top:10px;
+  padding-bottom:9px;
+  padding-inline:14px;
   width:900px;
+  translate: -12px;
+  border:1px solid theme('colors.clear');
+  border-radius:0px;
+  cursor: pointer;
+  background-color:white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.suggestion-doctor{
+  color: theme('colors.main');
+  font-size: 10pt;
+}
+
+.suggestion-speciality{
+  color: theme('colors.dark');
+  font-size: 9pt;
+  text-transform:uppercase;
+  text-align: end;
+}
+
+.suggestion-box{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  flex-direction:row;
 }
 
 .search-ico{
@@ -23,7 +64,37 @@
 }
 
 @media (max-width: 1090px) {
-  .search-input-size{
+  .search-input{
     width:80%;
+  }
+
+  .suggestion-span{
+    width:80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .suggestion-doctor{
+    font-size: 8pt;
+  }
+
+  .suggestion-speciality{
+    font-size: 7pt;
+  }
+}
+
+@media (min-width: 961px) {
+  .suggestion-doctor{
+    font-size: 12pt;
+  }
+
+  .suggestion-speciality{
+    font-size: 10.5pt;
+  }
+}
+
+@media (min-width: 1200px) {
+  .suggestion-box{
+    display:grid;
   }
 }

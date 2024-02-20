@@ -1,8 +1,8 @@
 'use client'
 
+
 import {useWindowWidth} from 'app/hooks/useWindow'
 import ImgFromCloud from 'app/ui/utils/ImageFromCloud'
-import DoctorCard from 'app/ui/book/DoctorCard/DoctorCard'
 import SearchInput from 'app/ui/book/SearchInput/SearchInput'
 import CollapseServiceFront from 'app/ui/utils/CollapseServiceFront'
 import ServiceFront from 'app/ui/utils/Service-front'
@@ -15,7 +15,7 @@ import AppointmentForm from 'app/ui/book/AppointmentForm/AppointmentForm'
 import { SessionContext } from 'app/provider'
 import { AlertContext } from 'app/ui/utils/FullScreenAlert'
 
-function InstantConsultation() {
+function BookAppointment() {
   const window_width = useWindowWidth(1920);
   const session = useContext(SessionContext);
   const alert = useContext(AlertContext)
@@ -76,29 +76,44 @@ function InstantConsultation() {
 
   return (
     <>
-      {!bookHidden ? <AppointmentForm hideForm={hideBooking} doctor={chosenDoctor!} /> : null}
-      <CollapseServiceFront hidden={isSearch} height="600px" reverse={false}>
-        <ServiceFront serviceTitle='Find a doctor and Consult instantly' classNameHeading='head-big head-big-t'>
-          <ImgFromCloud filename="Instant Consultation" filetype="img" format="png" width={imageSize} height={imageSize} altText='nurse taking care of an elder man illustration' />
-        </ServiceFront>
-      </CollapseServiceFront>
-      {bookHidden ? <SearchInput
-        hideFront={hideFront}
-        showFront={showFront}
-        search={handleSearch}
-        resetSearch={resetSearch}
-        marginBlock="l"
-        placeholder='Search doctors, clinics, hospitals, etc.'
-        /> : null}
-      <CollapseServiceFront hidden={!isSearch || !bookHidden} height="auto" reverse={false}>
-        <div style={{zIndex: "1", position:"relative", display:"grid"}}>
-          <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap", flexDirection:"row"}}>
-            {matchDoctors.map((doctor) => <DoctorCard doctor={doctor} key={doctor.id} book={handleBook}/>)}
-          </div>
+    {!bookHidden ? <AppointmentForm hideForm={hideBooking} doctor={chosenDoctor!} /> : null}
+    {bookHidden ? <SearchInput
+      hideFront={hideFront}
+      showFront={showFront}
+      search={handleSearch}
+      resetSearch={resetSearch}
+      marginBlock='s'
+      placeholder='Search doctors by specialty'
+      /> : null}
+    <CollapseServiceFront hidden={!isSearch} height="600px" reverse={true}>
+      <div style={{zIndex: "1", position:"relative", display:"grid"}}>
+        <div className='suggestion-box'>
+          {matchDoctors.map((doctor, index) => {
+            if(index > 15) return;
+            return <div
+              key={"div-" + index}
+              style={{display:"flex", opacity:`${(1/(index + 1))*400}%`}}
+              className='suggestion-span'
+              onClick={() => handleBook(doctor)}  
+            >
+              <span className='suggestion-doctor' key={doctor.id}>
+                {doctor.name}
+              </span>
+              <span className='suggestion-speciality' key={doctor.id}>
+                {doctor.speciality}
+              </span>
+            </div>
+          })}
         </div>
-      </CollapseServiceFront>
-    </>
+      </div>      
+    </CollapseServiceFront>
+    <CollapseServiceFront hidden={isSearch} height="600px" reverse={false}>
+      <ServiceFront serviceTitle='Find a doctor at your own ease' classNameHeading='head-big head-big-s'>
+        <ImgFromCloud filename="Book an Appointment" filetype="img" format="png" width={imageSize} height={imageSize} altText='nurse taking care of an elder man illustration' />
+      </ServiceFront>
+    </CollapseServiceFront>
+  </>
   )
 }
 
-export default InstantConsultation
+export default BookAppointment

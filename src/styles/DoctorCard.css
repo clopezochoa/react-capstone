@@ -12,6 +12,34 @@
   margin: 1rem;
 }
 
+.give-review-card-container{
+  width: 250px;
+  height: 456px;
+  border-radius: 12px;
+  border: 2px solid theme('colors.dark');
+  display: grid;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+  color: theme('colors.dark');
+  background: theme('colors.dark');
+  margin: 1rem;
+}
+
+.others-card-container{
+  width: 250px;
+  height: 456px;
+  border-radius: 12px;
+  border: 2px solid theme('colors.dark');
+  display: grid;
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+  color: theme('colors.dark');
+  background: theme('colors.clear');
+  margin: 1rem;
+}
+
 .doctor-picture{
   border-radius: 10px 10px 0px 0px;
   object-fit:fill;
@@ -65,6 +93,11 @@
   font-size: 16px;
 }
 
+.give-review-button {
+  padding-top: 8px;
+  font-size: 16px;
+}
+
 .card-button h2 {
   padding-top: 4px;
   text-transform: uppercase;
@@ -75,4 +108,14 @@
   display: flex;
   justify-content:center;
   margin-top: 18px;
+}
+
+.rating-wrap-review {
+  display: flex;
+  justify-content:center;
+  margin-top: 4px;
+}
+
+.star-input {
+  cursor: pointer;
 }
