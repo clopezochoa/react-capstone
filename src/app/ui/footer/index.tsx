@@ -1,10 +1,15 @@
 import React from 'react'
 import 'styles/footer.css'
 import Icon from './icon'
+import Notification from '../notification'
 
 function Footer() {
     return (
     <>
+    <div>
+        <Notification />
+    </div>
+
       <footer className= {`w-full bg-dark text-clear container-custom`} style={{visibility:"hidden"}}>
         <div className='footer-start'>
           <Icon />
