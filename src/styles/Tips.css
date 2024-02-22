@@ -12,7 +12,7 @@
 .bento-cell {
   background-color: #f5f5f5;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 18px;
   margin-inline: 15px;
   width: 100%;
   height: auto;
@@ -21,6 +21,7 @@
   min-width: 240px;
   min-height: 100px;
   transition: height 1s ease-in-out;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.16);
 }
 
 .bento-cell h3 {

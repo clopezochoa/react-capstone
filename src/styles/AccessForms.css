@@ -146,25 +146,16 @@
   background: #ffb5b5;
 }
 
-
-
-#password-input {
+#password-input,
+#new-password-input,
+#repeat-password-input {
   margin: 0;
   padding: 0;
   width: 80%;
   height: 100%;
   border: none;
-}
-
-#password-input:active,
-#password-input:hover,
-#password-input:focus,
-#password-input::selection {
-  border: none;
   outline: none;
 }
-
-
 
 #toggle-password {
   float:right;
