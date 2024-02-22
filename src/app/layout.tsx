@@ -9,6 +9,7 @@ import { Providers } from './provider';
 export const metadata: Metadata = {
   title: 'Stay Healthy',
   description: 'Medical appointment service',
+  keywords: ["example", "website", "products", "showcase", "demonstration"]
 }
 
 export default function RootLayout({
