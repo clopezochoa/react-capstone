@@ -9,6 +9,8 @@ const validationFunction = new Map<InputType, ValidationFunction> ([
   [InputType.email, emailValidation],
   [InputType.phone, phoneValidation],
   [InputType.password, passwordValidation],
+  [InputType.newPassword, passwordValidation],
+  [InputType.repeatPassword, passwordValidation],
 ]);
 
 export function validate(
@@ -52,7 +54,9 @@ export const handleInputEvent = (e: InputEvent, resetFunction: Map<InputType, Fu
   const state = form.getState(type);
   if(state) {
     form.setInputState(createInputState(state.type, InputValidity.pending, value));
-  } 
+  } else if (type === InputType.newPassword || type === InputType.repeatPassword){
+    form.setInputState(createInputState(type, InputValidity.pending, value));
+  }
 };
 
 function emailValidation(email: string): InputValidity {

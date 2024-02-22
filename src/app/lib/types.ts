@@ -15,6 +15,8 @@ export enum InputType {
   email = "email-input",
   phone = "phone-input",
   password = "password-input",
+  newPassword = "new-password-input",
+  repeatPassword = "repeat-password-input",
   date = "date",
   time = "time",
   none = "none",
@@ -112,6 +114,12 @@ export interface UserData {
   password: string
 }
 
+export type PasswordDTO = {
+  email: string;
+  current: string;
+  new: string;
+}
+
 export function createUserData(
   email: string,
   password: string | null,
@@ -137,10 +145,12 @@ export const apiHeader = {
   doctor_db: process.env.DOCTOR_DB,
   appointment_db: process.env.BOOK_DB,
   tip_db: process.env.TIP_DB,
+  reports_db: process.env.REP_DB,
   user_collection: process.env.USER_COL,
   doctor_collection: process.env.DOCTOR_COL,
   appointment_collection: process.env.BOOK_COL,
-  tip_collection: process.env.TIP_COL
+  tip_collection: process.env.TIP_COL,
+  reports_collection: process.env.REP_COL
 }
 
 export enum Cookies {
@@ -160,14 +170,14 @@ export interface DoctorData {
 export enum ServiceLink {
   instantConsultation = "Instant Consultation",
   bookAppointment = "Book an Appointment",
-  selfCheckup = "Self Checkup",
+  reports = "Reports",
   healthTips = "Health Tips and Guidance"
 }
 
 export const services = [
   ServiceLink.instantConsultation,
   ServiceLink.bookAppointment,
-  ServiceLink.selfCheckup,
+  ServiceLink.reports,
   ServiceLink.healthTips
 ];
 
@@ -192,13 +202,6 @@ export interface AppointmentData {
   review: ReviewData;
 }
 
-export interface AppointmentDTO {
-  time: string;
-  date: string;
-  patient: string;
-  doctor: string;
-}
-
 export function createAppointment(time?: string, date?: string, patient?: UserData, doctor?: DoctorData, id?: string, review?: ReviewData) {
   return {
     time: time,
@@ -210,6 +213,13 @@ export function createAppointment(time?: string, date?: string, patient?: UserDa
   } as AppointmentData
 }
 
+export interface AppointmentDTO {
+  time: string;
+  date: string;
+  patient: string;
+  doctor: string;
+}
+
 export function createAppointmentDTO(time?: string, date?: string, patient?: string, doctor?: string) {
   return {
     time: time,
@@ -217,6 +227,27 @@ export function createAppointmentDTO(time?: string, date?: string, patient?: str
     patient: patient,
     doctor: doctor,
   } as AppointmentDTO
+}
+
+export interface ReportDTO {
+  serial: string;
+  doctor: string;
+  speciality: string;
+  url: string;
+}
+
+export function createReportDTO(
+  serial?: string,
+  doctor?: string,
+  speciality?: string,
+  url?: string
+) {
+  return {
+    serial: serial,
+    doctor: doctor,
+    speciality: speciality,
+    url: url
+  } as ReportDTO
 }
 
 type TipImage = {
@@ -230,4 +261,12 @@ export type Tip = {
   subtitle: string;
   body: string;
   img?: TipImage;
+}
+
+export enum ReportItem {
+  serial = "Serial",
+  doctor = "Doctor",
+  speciality = "Speciality",
+  inspect = "Inspect",
+  download = "Download"
 }

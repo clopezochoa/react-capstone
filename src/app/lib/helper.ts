@@ -1,4 +1,4 @@
-import { DoctorData, UserData } from "./types";
+import { AppointmentData, DoctorData, UserData } from "./types";
 
 export function intersect<T>(arrayOne: Array<T>, arrayTwo: Array<T>) {
   var arrayLong = arrayOne;
@@ -12,7 +12,8 @@ export function intersect<T>(arrayOne: Array<T>, arrayTwo: Array<T>) {
   });
 }
 
-export function capitalizeFirstLetter(input: string) {
+export function capitalizeFirstLetter(input?: string) {
+  if(!input) return "";
   return input.charAt(0).toUpperCase() + input.slice(1);
 }
 
@@ -136,4 +137,9 @@ export function stringToMonth(input: string) {
     default:
       return(input);
   }
+}
+
+export function setEuropeanDateFormat (appointment: AppointmentData) {
+  const dateArray = appointment.date.split("-");
+  return dateArray[2] + " - " + stringToMonth(dateArray[1]) + " - " + dateArray[0];
 }
