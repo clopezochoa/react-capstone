@@ -81,8 +81,7 @@ const AppointmentForm = ({
     setTime(time);
 
     try {
-      const salt = genSaltSync(8);
-      const body = createAppointment(time, date, sessionContext?.session.user!, doctor, salt);
+      const body = createAppointment(time, date, sessionContext?.session.user!, doctor);
       const response = await fetch('/api/appointment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

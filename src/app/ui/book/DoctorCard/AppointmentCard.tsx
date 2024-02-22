@@ -5,7 +5,6 @@ import React from 'react'
 import 'styles/DoctorCard.css'
 
 export function DoctorInfo({doctor, appointment}: {doctor: DoctorData, appointment: AppointmentData}) {
-  console.log("🚀 ~ DoctorInfo ~ appointment.date:", appointment.date)
   const dateArray = appointment.date.split("-");
   const date = dateArray[2] + " - " + stringToMonth(dateArray[1]) + " - " + dateArray[0];
   return (

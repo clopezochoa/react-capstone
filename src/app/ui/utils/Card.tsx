@@ -41,7 +41,7 @@ const AdviceCard = ({tip, collapse}: {tip: Tip, collapse: boolean}) => {
     <div className="bento-cell"
      style={{height:`${minHeight}px`}}
      >
-      <div ref={content} style={{height:"fit-content"}}>
+      <div ref={content} style={{height:"min-content"}}>
         <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.5rem'}}>
           <Circle color={"#7A7A7A"} size={24}></Circle>
           <div className='read-button' onClick={toggle}>{!open ? "Read More" : "Read Less"}</div>

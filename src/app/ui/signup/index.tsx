@@ -87,6 +87,9 @@ const SignupForm = ({
 
       if(jsonToken.user.state) {
         sessionContext?.updateSession(createSession(true, jsonToken.user));
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       }
     } catch (error) {
       console.error(error)

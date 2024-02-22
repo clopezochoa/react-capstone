@@ -6,9 +6,6 @@ import 'styles/AccessForms.css'
 import 'styles/buttons.css'
 import 'styles/utils.css'
 import { InputStyle, InputType, InputEvent, AppointmentData, createReview, createAppointment } from "app/lib/types";
-import { AnimationTime } from "app/lib/animationTime";
-import { useForm } from "app/hooks/useForm";
-import { useStyle } from "app/hooks/useStyle";
 import { SessionContext } from "app/provider";
 import 'styles/DoctorCard.css'
 import { DoctorInfo } from "app/ui/book/DoctorCard/DoctorCard";
@@ -136,8 +133,8 @@ const ReviewForm = ({
                 </div>
               </div>
 
-              <div className="form-group">
-                <label htmlFor="name">Book Time Slot</label>
+              <div style={{marginTop:"1rem"}} className="form-group">
+                <label htmlFor="name">Leave a comment</label>
                 <textarea
                   name="name"
                   id={InputType.name}

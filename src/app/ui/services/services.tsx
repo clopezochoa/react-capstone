@@ -9,8 +9,8 @@ import { ServiceLink, services } from 'app/lib/types';
 const links = new Map<ServiceLink, string> ([
   [ServiceLink.instantConsultation, "instant-consultation"],
   [ServiceLink.bookAppointment, "book-appointment"],
-  [ServiceLink.selfCheckup, "self-checkup"],
-  [ServiceLink.healthTips, "heath-tips"]
+  [ServiceLink.reports, "reports"],
+  [ServiceLink.healthTips, "health-blog"]
 ]);
 
 function Services() {

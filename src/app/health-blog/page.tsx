@@ -32,12 +32,22 @@ const HealthBlog = () => {
     document.removeEventListener('keydown', handleEsc);
     document.addEventListener('keydown', handleEsc);
   }, []);
-  return (
+  return (<>
+    <center>
+      <h1 id='review' className='head-big'>
+        Self Checkup
+      </h1>
+      <h2 className='head-gradient'>
+        Learn how to identify health issues.
+      </h2>
+    </center>
+
     <div className="bento-container">
       {adviceData.map((item, index) => {
         return <AdviceCard key={index} tip={{...item}} collapse={collapse} />
       })}
     </div>
+  </>
   );
 };
 

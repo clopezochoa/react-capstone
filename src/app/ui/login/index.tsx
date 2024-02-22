@@ -79,6 +79,7 @@ const LoginForm = ({
       
       if(jsonToken?.state) {
         sessionContext?.updateSession(createSession(true, jsonToken?.user));
+        window.location.reload();
       }
     } catch (error) {
       console.error(error)
@@ -133,7 +134,6 @@ const LoginForm = ({
                 placeholder="Enter your email"
                 aria-describedby="helpId"
                 autoComplete="email"
-                data-form-type="username,email"
                 onFocus={handleEvent}
                 onInput={handleEvent}
                 onChange={handleEvent}
@@ -156,7 +156,6 @@ const LoginForm = ({
                   id={InputType.password}
                   placeholder="Enter your password"
                   aria-describedby="helpId"
-                  data-form-type="password"
                   onFocus={handleEvent}
                   onInput={handleEvent}
                   onChange={handleEvent}

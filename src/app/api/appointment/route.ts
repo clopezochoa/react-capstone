@@ -29,6 +29,7 @@ const bookAppointment = async (appointmentData: AppointmentData) => {
   }
   
   const appointment = await colleciton.insertOne(appointmentData);
+  await colleciton.updateOne({_id: appointment.insertedId }, { $set: { id: appointment.insertedId.toString() } })
   client.close();
 
   return {status: true, appointment: createAppointment(appointmentData.time, appointmentData.date, appointmentData.patient, appointmentData.doctor, appointment?.insertedId.toString())};

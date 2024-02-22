@@ -5,7 +5,7 @@ import ImgFromCloud from "app/ui/utils/ImageFromCloud";
 import 'styles/AccessForms.css'
 import 'styles/buttons.css'
 import 'styles/utils.css'
-import { InputStyle, InputType, InputEvent, DoctorData, createAppointment, AppointmentData } from "app/lib/types";
+import { InputStyle, InputType, InputEvent, DoctorData, createAppointment, AppointmentData, createAppointmentDTO } from "app/lib/types";
 import { AnimationTime } from "app/lib/animationTime";
 import { useForm } from "app/hooks/useForm";
 import { useStyle } from "app/hooks/useStyle";
@@ -19,11 +19,9 @@ import { genSaltSync } from "bcrypt-ts";
 const EditAppointmentForm = ({
   hideForm,
   appointment,
-  // doctor
 }: {
   hideForm: () => void;
   appointment: AppointmentData
-  // doctor: DoctorData
 }) => {
   const sessionContext = useContext(SessionContext);
   const form = useForm();
@@ -75,18 +73,48 @@ const EditAppointmentForm = ({
     }
 
     try {
-      const salt = genSaltSync(8);
-      const body = createAppointment(time, date, sessionContext?.session.user!, appointment.doctor, salt);
-      const response = await fetch('/api/appointment', {
-        method: 'POST',
+      const dto = createAppointmentDTO(appointment.time, appointment.date, appointment.patient.name, appointment.doctor.name);
+      const deleteResponse = await fetch('/api/appointment', {
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(dto),
       });
-      if(response) location.reload();
+      const deleteCount = await deleteResponse?.json();
+      if(deleteCount && deleteCount.state > 0) {
+        const salt = genSaltSync(8);
+        const body = createAppointment(time, date, sessionContext?.session.user!, appointment.doctor, salt);
+        const response = await fetch('/api/appointment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if(response) location.reload();
+      } else {
+        throw new Error("Previous appointment was not found!")
+      }
     } catch (error) {
       console.error(error)
     }
   };
+
+  const handleCancel = async (e?: InputEvent) => {
+    e?.preventDefault();
+    try {
+      const dto = createAppointmentDTO(appointment.time, appointment.date, appointment.patient.name, appointment.doctor.name);
+      const deleteResponse = await fetch('/api/appointment', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dto),
+      });
+      const deleteCount = await deleteResponse?.json();
+      if(deleteCount && deleteCount.state > 0) {
+        hideForm();
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const handleEvent = (e: InputEvent) => {   
     handleInputEvent(e, null, form);
@@ -149,6 +177,7 @@ const EditAppointmentForm = ({
               <div className="form-button-group" style={{paddingTop:"0.5rem", paddingBottom:"1.5rem"}}>
                 <button className="form-button form-button-main" onClick={handleBook} >Confirm</button>
                 <button className="form-button form-button-secondary" onClick={resetBook} >Reset</button>
+                <button className="form-button form-button-cancel" onClick={handleCancel} >Cancel</button>
               </div>
             </form>
           </div>
