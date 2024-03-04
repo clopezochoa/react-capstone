@@ -1,3 +1,5 @@
+'use client'
+
 import React, { CSSProperties, useEffect, useState } from 'react'
 import Image from "next/image";
 import { fetchImage } from 'app/lib/image-fetch';

@@ -1,10 +1,15 @@
+'use client'
+
 import React from 'react'
 import 'styles/footer.css'
-import Icon from './icon'
 import Notification from '../notification'
+import { useWindowWidth } from 'app/hooks/useWindow'
+import { useIcon } from 'app/hooks/useIcon'
 
 function Footer() {
-    return (
+  const window_width = useWindowWidth(1920);
+  const icon = useIcon({window_width: window_width})
+  return (
     <>
     <div>
         <Notification />
@@ -12,7 +17,7 @@ function Footer() {
 
       <footer className= {`w-full bg-dark text-clear container-custom`} style={{visibility:"hidden"}}>
         <div className='footer-start'>
-          <Icon />
+          {icon}
           Designed by Carlos López-Ochoa Aledo
         </div>
         <div className='footer-end'>
