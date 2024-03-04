@@ -68,7 +68,7 @@
 }
 
 .form-button-group {
-  padding-top: 41px;
+  padding-top: 12px;
 }
 
 .start-button-text {
@@ -115,10 +115,22 @@
   margin-bottom: 0.5rem;
 }
 
+.close-btn-mobile{
+  z-index: 10;
+  margin: 25px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+
 @media (max-width: 640px) {
   .form-button {
     min-width: 285px;
     width: 100%;
+  }
+  .close-btn-mobile{
+    opacity: 1;
   }
 }
 
