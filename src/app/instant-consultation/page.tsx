@@ -88,7 +88,7 @@ function InstantConsultation() {
         search={handleSearch}
         resetSearch={resetSearch}
         marginBlock="l"
-        placeholder='Search doctors, clinics, hospitals, etc.'
+        placeholder='Search doctor, speciality, etc.'
         /> : null}
       <CollapseServiceFront hidden={!isSearch || !bookHidden} height="auto" reverse={false}>
         <div style={{zIndex: "1", position:"relative", display:"grid"}}>
