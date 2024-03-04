@@ -184,7 +184,7 @@
     translate: 0px 0px;
   }
   .form-container{
-    position: absolute;
+    top:0
   }
 }
 
