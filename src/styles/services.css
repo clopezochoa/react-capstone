@@ -23,3 +23,9 @@
   max-width: 200px;
   cursor: pointer;
 }
+
+@media (max-width:640px) {
+  .service-item{
+    margin-bottom: 3rem;
+  }
+}
