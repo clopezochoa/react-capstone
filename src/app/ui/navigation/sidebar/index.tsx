@@ -1,6 +1,6 @@
 'use client'
 
-import CloseButton from "./closeButton";
+import CloseButton from "app/ui/utils/closeButton";
 import { useContext, useEffect, useState } from "react";
 import { SessionContext } from "app/provider";
 import { getFirstNameFromUserData } from "app/lib/helper";
@@ -67,8 +67,8 @@ const Sidebar = ({
           transition: 'opacity 0.4s ease-in-out, right 0.4s ease-in-out',
         }}
       >
-        <button className="absolute right-0 p-5" onClick={toggle}>
-          <CloseButton />
+        <button className="close-btn-mobile" onClick={toggle}>
+          <CloseButton size={24} />
         </button>
 
         <div className="offcanvas">
