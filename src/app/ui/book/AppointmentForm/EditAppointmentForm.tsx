@@ -15,6 +15,7 @@ import { compareDate, getNow, getToday } from "app/lib/helper";
 import { DoctorInfo } from "../DoctorCard/AppointmentCard";
 import 'styles/DoctorCard.css'
 import { genSaltSync } from "bcrypt-ts";
+import CloseButton from "app/ui/utils/closeButton";
 
 const EditAppointmentForm = ({
   hideForm,
@@ -125,6 +126,9 @@ const EditAppointmentForm = ({
       <div className="overlay-background-white"></div>
       <div className="form-container" onClick={hideForm}>
         <div className="doctor-form-shape form-shape" onClick={(e) => e.stopPropagation()}>
+          <button className="close-btn-mobile" onClick={hideForm}>
+            <CloseButton size={24} />
+          </button>
           <div style={{marginBottom:"1rem", marginTop:"3rem", borderRadius:"100px", overflow:"hidden", width:"200px", height:"200px"}}>
             <ImgFromCloud
               filename={appointment.doctor?.name}
@@ -176,7 +180,6 @@ const EditAppointmentForm = ({
               </div>
               <div className="form-button-group" style={{paddingTop:"0.5rem", paddingBottom:"1.5rem"}}>
                 <button className="form-button form-button-main" onClick={handleBook} >Confirm</button>
-                <button className="form-button form-button-secondary" onClick={resetBook} >Reset</button>
                 <button className="form-button form-button-cancel" onClick={handleCancel} >Cancel</button>
               </div>
             </form>

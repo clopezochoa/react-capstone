@@ -12,7 +12,7 @@ import { SessionContext } from "app/provider";
 import { compareDate, getNow, getToday } from "app/lib/helper";
 import { DoctorInfo } from "../DoctorCard/DoctorCard";
 import 'styles/DoctorCard.css'
-import { genSaltSync } from "bcrypt-ts";
+import CloseButton from "app/ui/utils/closeButton";
 
 const AppointmentForm = ({
   hideForm,
@@ -132,6 +132,9 @@ const AppointmentForm = ({
       <div className="overlay-background-white"></div>
       <div className="form-container" onClick={hideForm}>
         <div className="doctor-form-shape form-shape" onClick={(e) => e.stopPropagation()}>
+          <button className="close-btn-mobile" onClick={hideForm}>
+            <CloseButton size={24} />
+          </button>
           <div style={{marginBottom:"1rem", marginTop:"3rem", borderRadius:"100px", overflow:"hidden", width:"200px", height:"200px"}}>
             <ImgFromCloud
               filename={doctor?.name}
