@@ -2,7 +2,8 @@ import { InputValidity, InputType, ValidationFunction, InputState, initialValida
 
 const lettersNumbersHyphenDotRegex = /^[a-zA-Z0-9.-]+$/;
 const lettersRegex = /^[a-zA-Z]+$/;
-const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+const phoneUSARegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+const phoneESRegex = /^[0-9]{9}$/;
 const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}/;
 
 const validationFunction = new Map<InputType, ValidationFunction> ([
@@ -78,7 +79,7 @@ function emailValidation(email: string): InputValidity {
 
 function phoneValidation(phone: string): InputValidity {
   var isValid = InputValidity.invalid;
-  if (phoneRegex.test(phone)) {
+  if (phoneUSARegex.test(phone) || phoneESRegex.test(phone)) {
     isValid = InputValidity.valid;
   }
   return isValid;
