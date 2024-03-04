@@ -17,3 +17,9 @@
 .select-placeholder {
   color: #38464a80;
 }
+
+@media (max-width:640px) {
+  .divider-wrapper{
+    padding-inline: 4rem;
+  }
+}
