@@ -52,17 +52,21 @@ const Navigation = () => {
     window.location.reload();
   }
 
-  const toggleProfile = () => {
-    setIsProfileVisible(!isProfileVisible);
+  const showProfile = () => {
+    setIsProfileVisible(true);
+  }
+  
+  const hideProfile = () => {
+    setIsProfileVisible(false);
   }
 
   return (
     <>
-      <Navbar toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} handleLogout={handleLogout} handleProfile={toggleProfile} />
-      <Sidebar isOpen={isSidebarVisible} toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} handleLogout={handleLogout} handleProfile={toggleProfile}/>
-      { isProfileVisible ? <Profile toggle={toggleProfile} /> : null }
-      { isLoginVisible ? <LoginForm handleLogin={swapForm} hideForm={hideForm} /> : null }
-      { isSignupVisible ? <SignupForm handleSignup={swapForm} hideForm={hideForm} /> : null }
+      <Navbar toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} handleLogout={handleLogout} handleProfile={showProfile} />
+      <Sidebar isOpen={isSidebarVisible} toggle={toggleSidebar} handleLogin={toggleLogin} handleSignup={toggleSignup} handleLogout={handleLogout} handleProfile={showProfile}/>
+      { isProfileVisible ? <Profile toggle={hideProfile} /> : null }
+      { isLoginVisible ? <LoginForm handleLogin={swapForm} hideForm={hideForm} showProfile={showProfile} /> : null }
+      { isSignupVisible ? <SignupForm handleSignup={swapForm} hideForm={hideForm} showProfile={showProfile} /> : null }
     </>
   );
 };
