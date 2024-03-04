@@ -11,13 +11,16 @@ import { useStyle } from "app/hooks/useStyle";
 import { handleInputEvent } from "app/lib/validation";
 import { useCookies } from "react-cookie";
 import { SessionContext } from "app/provider";
+import CloseButton from "../utils/closeButton";
 
 const LoginForm = ({
   handleLogin,
-  hideForm
+  hideForm,
+  showProfile
 }: {
   handleLogin: () => void;
   hideForm: () => void;
+  showProfile: () => void;
 }) => {
 
   const sessionContext = useContext(SessionContext);
@@ -79,7 +82,7 @@ const LoginForm = ({
       
       if(jsonToken?.state) {
         sessionContext?.updateSession(createSession(true, jsonToken?.user));
-        window.location.reload();
+        showProfile();
       }
     } catch (error) {
       console.error(error)
@@ -116,6 +119,9 @@ const LoginForm = ({
     <div className="overlay-background-white"></div>
     <div className="form-container" onClick={hideForm}>
       <div className="form-shape" onClick={(e) => e.stopPropagation()}>
+        <button className="close-btn-mobile" onClick={hideForm}>
+          <CloseButton size={24} />
+        </button>
         <h1 className="custom-header">Login</h1>
         <div className="form-suggestion">
           Are you a new member? <a href="#" className="link" onClick={handleLogin}> Sign up</a>

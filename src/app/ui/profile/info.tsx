@@ -1,13 +1,17 @@
 import { capitalizeFirstLetter } from 'app/lib/helper'
 import { SessionContext } from 'app/provider'
 import React, { useContext } from 'react'
+import 'styles/buttons.css'
+import CloseButton from '../utils/closeButton'
 
-
-const Info = ({change, password}:{change: () => void, password: () => void}) => {
+const Info = ({hideForm, change, password}:{hideForm: () => void, change: () => void, password: () => void}) => {
   const session = useContext(SessionContext);
   return (
     <>
       <div className="profile" onClick={(e) => e.stopPropagation()}>
+        <button className="close-btn-mobile" onClick={hideForm}>
+          <CloseButton size={24} />
+        </button>
         <h1>Welcome, {capitalizeFirstLetter(session?.session.user?.name.split(" ")[0])}</h1>
         <div className='data-span'>
           <label>

@@ -13,19 +13,22 @@ import { handleInputEvent } from "app/lib/validation";
 import { genSaltSync, hashSync } from "bcrypt-ts";
 import { useCookies } from "react-cookie";
 import { SessionContext } from "app/provider";
+import CloseButton from "../utils/closeButton";
 
 const SignupForm = ({
   handleSignup,
-  hideForm
+  hideForm,
+  showProfile
 }: {
   handleSignup: () => void;
   hideForm: () => void;
+  showProfile: () => void;
 }) => {
 
   const sessionContext = useContext(SessionContext);
   const [cookie, setCookie] = useCookies([Cookies.userSession]);
   const inputs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
-
+  
   const register = async (e: InputEvent) => {
     e.preventDefault();
     var email = form.getState(InputType.email)?.value ?? "";
@@ -78,18 +81,15 @@ const SignupForm = ({
         body: JSON.stringify(body),
       });
       const jsonToken = await token.json();
-            
-      setCookie(Cookies.userSession, JSON.stringify(jsonToken), {
-        path: "/",
-        maxAge: 3600,
-        sameSite: "strict",
-      });
-
-      if(jsonToken.user.state) {
+      
+      if(jsonToken?.state) {
+        setCookie(Cookies.userSession, JSON.stringify(jsonToken), {
+          path: "/",
+          maxAge: 3600,
+          sameSite: "strict",
+        });
         sessionContext?.updateSession(createSession(true, jsonToken.user));
-        setTimeout(() => {
-          window.location.reload();
-        }, 100);
+        showProfile();
       }
     } catch (error) {
       console.error(error)
@@ -132,6 +132,9 @@ const SignupForm = ({
     <div className="overlay-background-white"></div>
     <div className="form-container" onClick={hideForm}>
       <div className="form-shape" onClick={(e) => e.stopPropagation()}>
+        <button className="close-btn-mobile" onClick={hideForm}>
+          <CloseButton size={24} />
+        </button>
         <h1 className="custom-header">Sign up</h1>
         <div className="form-suggestion">
         Already a member? <a href="#" className="link" onClick={handleSignup}> Login</a>
@@ -248,6 +251,7 @@ const SignupForm = ({
         </div>
         <div id="login-final-gap"></div>
       </div>
+
     </div>
   </>
 }

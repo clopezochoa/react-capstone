@@ -14,7 +14,7 @@ function Profile({toggle}: {toggle: () => void}) {
   const [content, setContent] = useState(nullContent);
 
   const setDefault = () => {
-    if(session?.session.isSession) setContent(<Info change={change} password={password}/>);
+    if(session?.session.isSession) setContent(<Info hideForm={exit} change={change} password={password}/>);
   }
 
   const change = () => {
