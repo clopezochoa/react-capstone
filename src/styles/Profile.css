@@ -31,6 +31,7 @@
   display: grid;
   text-align: start;
   margin-left: 37px;
+  height: fit-content;
 }
 
 .data-span label{
@@ -44,4 +45,15 @@
 
 .profile-button-group{
   padding-inline: 37px;
+}
+
+@media (max-width: 640px) {
+  .profile{
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    display: grid;
+    padding-top: 4rem;
+    padding-bottom: 50%;
+  }
 }
