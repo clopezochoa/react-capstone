@@ -45,3 +45,9 @@
   margin-top: 16px;
   margin-bottom: 10px;
 }
+
+@media (max-width:640px) {
+  .notification-stack{
+    z-index: -1;
+  }
+}
