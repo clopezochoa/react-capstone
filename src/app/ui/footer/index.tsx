@@ -16,12 +16,12 @@ function Footer() {
     </div>
 
       <footer className= {`w-full bg-dark text-clear container-custom`} style={{visibility:"hidden"}}>
-        <div className='footer-start'>
+        <a className='footer-start' target="_blank" rel="noopener noreferrer" href="https://www.lopezochoa.com">
           {icon}
           Designed by Carlos López-Ochoa Aledo
-        </div>
+        </a>
         <div className='footer-end'>
-          Vectors and icons by <a href="https://www.svgrepo.com" target="_blank">SVG Repo</a>
+          Vectors and icons by <a href="https://www.svgrepo.com" target="_blank" rel="noopener noreferrer">SVG Repo</a>
         </div>
       </footer>
     </>
