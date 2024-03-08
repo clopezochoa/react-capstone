@@ -1,9 +1,10 @@
 import { ReportDTO, UserData } from 'app/lib/types';
-import { useEffect, useState } from 'react'
+import { SessionContext } from 'app/provider';
+import { useContext, useEffect, useState } from 'react'
 
 function useAppointmentsList(user: UserData) {
   const [reports, setReports] = useState<Array<ReportDTO>>([]);
-
+  const session = useContext(SessionContext);
   const getReportsList = async (email: string) => {
     try {
       const reports = await fetch('/api/report', {
@@ -22,7 +23,7 @@ function useAppointmentsList(user: UserData) {
   }
 
   useEffect(() => {
-    getReportsList(user.email);
+    if(session?.session.isSession) getReportsList(user.email);
   }, [user])
     
   return reports;
