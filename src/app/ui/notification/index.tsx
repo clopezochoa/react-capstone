@@ -1,7 +1,7 @@
 'use client'
 
 import useAppointmentsList from 'app/hooks/useAppointment';
-import { setEuropeanDateFormat, stringToMonth } from 'app/lib/helper';
+import { compareDate, compareTime, getToday, setEuropeanDateFormat, stringToMonth } from 'app/lib/helper';
 import { SessionContext } from 'app/provider';
 import React, { useContext, useEffect, useState } from 'react'
 import 'styles/notification.css'
@@ -12,9 +12,11 @@ function Notification() {
   const defaultStack = <></>;
   const [stack, setStack] = useState(defaultStack);
   useEffect(() => {
-    if(session?.session.isSession && appointments && appointments.length > 0){
+    if(session?.session.isSession && appointments && appointments.length > 0){     
       setStack(<>
-      {appointments.map((appointment, index) => {
+      {appointments
+        .filter(appointment => !compareDate(appointment.date, getToday(), true))
+        .map((appointment, index) => {
       return(
         <div key={index} className='notification' >
           <h1>

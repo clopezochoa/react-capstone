@@ -9,6 +9,7 @@ import useAppointmentsList from 'app/hooks/useAppointment'
 import 'styles/headings.css'
 import AppointmentCard from 'app/ui/book/DoctorCard/AppointmentCard'
 import EditAppointmentForm from 'app/ui/book/AppointmentForm/EditAppointmentForm'
+import { compareDate, getToday } from 'app/lib/helper'
 
 function Appointments() {
   const window_width = useWindowWidth(1920);
@@ -56,7 +57,9 @@ function Appointments() {
       {appointments && appointments.length > 0 ? 
       <div style={{marginTop: "4rem",zIndex: "1", position:"relative", display:"grid"}}>
         <div style={{display:"flex", justifyContent:"center", flexWrap:"wrap", flexDirection:"row"}}>
-          {appointments.map((appointment) => <AppointmentCard appointment={appointment} key={appointment.id} edit={handleEdit}/>)}
+          {appointments
+            .filter(appointment => !compareDate(appointment.date, getToday(), true))
+            .map((appointment) => <AppointmentCard appointment={appointment} key={appointment.id} edit={handleEdit}/>)}
         </div>
       </div>
       : null}

@@ -74,21 +74,25 @@ export function getNow(): string {
   return hours + ':' + mins;
 }
 
-export function compareDate(refDate: string, refTime: string): boolean {
+export function compareDate(refDate: string, refTime: string, forwardTime: boolean = false): boolean {
   const today = getToday();
   const day = parseInt(today.slice(8,10));
   const month = parseInt(today.slice(5,7));
   const year = parseInt(today.slice(0,4));
-  // console.log("🚀 ~ today", year, month, day)
+
   const refDay = parseInt(refDate.slice(8,10));
   const refMonth = parseInt(refDate.slice(5,7));
   const refYear = parseInt(refDate.slice(0,4));
-  // console.log("🚀 ~ refDay", refYear, refMonth, refDay)
-  
-  if(day > refDay || month > refMonth || year > refYear) {
+
+  if(year > refYear) {
+    return true;
+  } else if(year === refYear && month > refMonth) {
+    return true;
+  } else if(month === refMonth && year === refYear && day > refDay) {
     return true;
   } else if(day === refDay && month === refMonth && year === refYear) {
-    return compareTime(refTime);
+    const timeComparison = compareTime(refTime);
+    return !forwardTime ? timeComparison : !timeComparison;
   } else {
     return false;
   }

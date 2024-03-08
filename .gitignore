@@ -38,3 +38,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+public/dog.glb
+public/suit.glb
+src/app/ui/three/ThreeScene.tsx
+src/app/ui/three/box.tsx
+src/app/three-test/page.tsx
+src/app/pose-detection/pose.tsx
+src/app/pose-detection/pose.css
+src/app/pose-detection/page.tsx
+public/Suit.tsx
+src/app/mongoTest/index copy.tsx
+src/app/mongoTest/index.tsx
+src/app/mongoTest/server.tsx
